@@ -9,3 +9,5 @@ interface Props {
 export default function AuthContext({ children }: Props) {
   return <SessionProvider>{children}</SessionProvider>;
 }
+
+// usesession hook을 쓰면됨

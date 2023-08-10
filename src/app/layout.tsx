@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
 import AuthContext from "@/context/AuthContext";
+import SWRConfigContext from "@/context/SWRConfigContext";
 
 const NotoSans = Noto_Sans({
   subsets: ["latin"],
@@ -28,7 +29,9 @@ export default function RootLayout({
             <Navbar />
           </header>
         </AuthContext>
-        <main>{children}</main>
+        <main>
+          <SWRConfigContext>{children}</SWRConfigContext>
+        </main>
       </body>
     </html>
   );
