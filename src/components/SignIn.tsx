@@ -8,7 +8,7 @@ interface Props {
   callbackUrl: string;
 }
 
-export default function SignIn({ providers, callbackUrl }: Propss) {
+export default function SignIn({ providers, callbackUrl }: Props) {
   return (
     <>
       {Object.values(providers).map(({ name, id }) => (
@@ -16,6 +16,7 @@ export default function SignIn({ providers, callbackUrl }: Propss) {
           key={id}
           text={`Sign In with ${name}`}
           onClick={() => signIn(id, { callbackUrl })}
+          size={"big"}
         />
       ))}
     </>

@@ -2,6 +2,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import SignIn from "@/components/SignIn";
 import { getProviders } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 interface Props {
   searchParams: {
@@ -21,5 +22,3 @@ export default async function SignPage({
 
   return <SignIn providers={providers} callbackUrl={callbackUrl ?? "/"} />;
 }
-
-// server side 서버상에서 동작하는 컴포넌트
