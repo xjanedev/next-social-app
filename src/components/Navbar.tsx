@@ -33,7 +33,7 @@ const menu = [
 ];
 
 export default function Navbar() {
-  const { data: session } = useSession();
+  const { data: session } = useSession(); // next-auth hook
   const path = usePathname();
   const user = session?.user;
 

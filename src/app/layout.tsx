@@ -30,6 +30,7 @@ export default function RootLayout({
           </header>
         </AuthContext>
         <main>
+          {/* // 위치가 중요함 -> 팔로잉 목록, 포스트 리스트 부분만 데이터 불러올것임 */}
           <SWRConfigContext>{children}</SWRConfigContext>
         </main>
       </body>
