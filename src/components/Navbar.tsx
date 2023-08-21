@@ -40,7 +40,7 @@ export default function Navbar() {
   return (
     <div className='flex justify-between items-center px-8'>
       <Link href='/'>
-        <h1 className='text-2xl font-bold'>thread</h1>
+        <h1 className='text-2xl font-bold'>dear diary,</h1>
       </Link>
       <nav>
         <ul className='flex gap-4 items-center p-4'>
@@ -59,9 +59,13 @@ export default function Navbar() {
           )}
           <li>
             {session ? (
-              <Button text='Sign out' onClick={() => signOut()} size={"big"} />
+              <Button
+                text='Sign out'
+                onClick={() => signOut()}
+                size={"small"}
+              />
             ) : (
-              <Button text='Sign In' onClick={() => signIn()} size={"big"} />
+              <Button text='Sign In' onClick={() => signIn()} size={"small"} />
             )}
           </li>
         </ul>

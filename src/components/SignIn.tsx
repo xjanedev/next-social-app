@@ -10,18 +10,19 @@ interface Props {
 
 export default function SignIn({ providers, callbackUrl }: Props) {
   return (
-    <>
-      {Object.values(providers).map(({ name, id }) => (
-        // eslint-disable-next-line react/jsx-key
-        <div className='display flex justify-center'>
-          <Button
-            key={id}
-            text={`Sign In with ${name}`}
-            onClick={() => signIn(id, { callbackUrl })}
-            size={"big"}
-          />
-        </div>
-      ))}
-    </>
+    <div className='fixed inset-0 flex justify-center items-center'>
+      <div className='text-center'>
+        <div className='mb-4'>📓 share your diary</div>
+        {Object.values(providers).map(({ name, id }) => (
+          <div key={id}>
+            <Button
+              text={`Sign In with ${name}`}
+              onClick={() => signIn(id, { callbackUrl })}
+              size='big'
+            />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
