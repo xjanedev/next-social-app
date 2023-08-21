@@ -5,7 +5,7 @@ interface OAuthUser {
   email: string;
   name: string;
   username: string;
-  image?: string | null; // optional
+  image?: string | null;
 }
 
 export async function addUser({ id, email, image, name, username }: OAuthUser) {

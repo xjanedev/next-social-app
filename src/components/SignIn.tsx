@@ -10,18 +10,19 @@ interface Props {
 
 export default function SignIn({ providers, callbackUrl }: Props) {
   return (
-    <>
-      {Object.values(providers).map(({ name, id }) => (
-        <Button
-          key={id}
-          text={`Sign In with ${name}`}
-          onClick={() => signIn(id, { callbackUrl })}
-          size={"big"}
-        />
-      ))}
-    </>
+    <div className='fixed inset-0 flex justify-center items-center'>
+      <div className='text-center'>
+        <div className='mb-4'>📓 share your diary</div>
+        {Object.values(providers).map(({ name, id }) => (
+          <div key={id}>
+            <Button
+              text={`Sign In with ${name}`}
+              onClick={() => signIn(id, { callbackUrl })}
+              size='big'
+            />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
-
-// record type, map 비슷한 종류
-// ui 그려주는 컴포넌트 -> 클라이언트 컴포넌트
