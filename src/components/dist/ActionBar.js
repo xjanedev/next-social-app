@@ -7,7 +7,7 @@ var date_1 = require("@/util/date");
 function ActionBar(_a) {
     var _b;
     var likes = _a.likes, username = _a.username, text = _a.text, createdAt = _a.createdAt;
-    return (react_1["default"].createElement(react_1["default"].Fragment, null,
+    return (react_1["default"].createElement("div", { className: 'h-auto' },
         react_1["default"].createElement("div", { className: 'flex justify-between mt-2 px-4' },
             react_1["default"].createElement(HeartIcon_1["default"], null),
             react_1["default"].createElement(BookmarkIcon_1["default"], null)),
