@@ -12,7 +12,7 @@ interface Props {
 
 export default function ActionBar({ likes, username, text, createdAt }: Props) {
   return (
-    <>
+    <div className='h-auto'>
       <div className='flex justify-between mt-2 px-4'>
         <HeartIcon />
         <BookmarkIcon />
@@ -29,6 +29,6 @@ export default function ActionBar({ likes, username, text, createdAt }: Props) {
           {parseDate(createdAt)}
         </p>
       </div>
-    </>
+    </div>
   );
 }
