@@ -19,15 +19,16 @@
 //   );
 // }
 
-type Props = {
-  image?: string | null;
-  size?: "small" | "normal";
-  highlight?: boolean;
-};
+type ProfileSize = "small" | "medium" | "large"; // 리터럴 유니온 타입지정
 
-export default function Avatar({
+interface Props {
+  image?: string | null;
+  size?: ProfileSize;
+  highlight?: boolean;
+}
+export default function Profile({
   image,
-  size = "small",
+  size = "medium",
   highlight = false,
 }: Props) {
   return (
@@ -45,14 +46,32 @@ export default function Avatar({
   );
 }
 
-function getContainerStyle(size: string): string {
+// sizestyle 함수화
+
+function getContainerStyle(size: ProfileSize): string {
   const baseStyle = "rounded-full flex justify-center items-center";
-  const sizeStyle = size === "small" ? "w-11 h-11" : "w-[72px] h-[72px]";
+  const sizeStyle = getContainerSize(size);
   return `${baseStyle} ${sizeStyle}`;
 }
 
-function getImageSizeStyle(size: string): string {
-  return size === "small"
-    ? "w-[36px] h-[36px] p-[0.1rem]"
-    : "w-18 h-18 p-[0.2rem] ";
+function getContainerSize(size: ProfileSize): string {
+  switch (size) {
+    case "small":
+      return "w-9 h-9";
+    case "medium":
+      return "w-11 h-11";
+    case "large":
+      return "w-[72px] h-[72px]";
+  }
+}
+
+function getImageSizeStyle(size: ProfileSize): string {
+  switch (size) {
+    case "small":
+      return "w=[34px] h-[34px] p-[0.1rem]";
+    case "medium":
+      return "w-[42px] h-[42px] p-[0.1rem]";
+    case "large":
+      return "w-18 h-18 p-[0.2rem]";
+  }
 }
