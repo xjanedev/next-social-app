@@ -47,7 +47,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getFollowingPostsOf = void 0;
+exports.getPost = exports.getFollowingPostsOf = void 0;
 var sanity_1 = require("./sanity");
 var simplePostProjection = "\n    ...,\n    \"username\": author->username,\n    \"userImage\": author->image,\n    \"image\": photo,\n    \"likes\": likes[]->username,\n    \"text\": comments[0].comment,\n    \"comments\": count(comments),\n    \"id\":_id,\n    \"createdAt\":_createdAt\n";
 function getFollowingPostsOf(username) {
@@ -62,3 +62,13 @@ function getFollowingPostsOf(username) {
     });
 }
 exports.getFollowingPostsOf = getFollowingPostsOf;
+function getPost(id) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, sanity_1.client
+                    .fetch("*[_type == \"post\" && _id == \"" + id + "\"][0] {\n    ...,\n    \"username\": author-> username,\n    \"userImage\":author-> image,\n    \"image\": photo,\n    \"likes\": likes[]-> username,\n    comments[]{comment, \"username\": author -> username, \"image\": author->image},\n    \"id\": _id,\n    \"createdAt\": _createdAt\n  }")
+                    .then(function (post) { return (__assign(__assign({}, post), { image: sanity_1.urlFor(post.image) })); })];
+        });
+    });
+}
+exports.getPost = getPost;

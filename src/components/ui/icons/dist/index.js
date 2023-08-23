@@ -23,4 +23,6 @@ var HeartIcon_1 = require("./HeartIcon");
 __createBinding(exports, HeartIcon_1, "default", "BsHeart");
 var BookmarkIcon_1 = require("./BookmarkIcon");
 __createBinding(exports, BookmarkIcon_1, "default", "BsBookmark");
+var ClosedIcon_1 = require("./ClosedIcon");
+__createBinding(exports, ClosedIcon_1, "default", "CgClose");
 // 모듈 내보내기

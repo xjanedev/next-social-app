@@ -1,36 +1,10 @@
-// /* eslint-disable @next/next/no-img-element */
-// import React from "react";
-// import Image from "next/image";
-
-// interface Props {
-//   image?: string | null;
-// }
-
-// export default function Profile({ image }: Props) {
-//   return (
-//     <div className='w-9 h-9'>
-//       <img
-//         className='rounded-full p-[0.1rem]'
-//         alt='user profile'
-//         src={image ?? undefined}
-//         referrerPolicy='no-referrer'
-//       />
-//     </div>
-//   );
-// }
-
-type ProfileSize = "small" | "medium" | "large"; // 리터럴 유니온 타입지정
+type ProfileSize = "small" | "medium" | "large";
 
 interface Props {
   image?: string | null;
   size?: ProfileSize;
-  highlight?: boolean;
 }
-export default function Profile({
-  image,
-  size = "medium",
-  highlight = false,
-}: Props) {
+export default function Profile({ image, size = "medium" }: Props) {
   return (
     <div className={getContainerStyle(size)}>
       {/* eslint-disable-next-line @next/next/no-img-element*/}
@@ -57,7 +31,7 @@ function getContainerStyle(size: ProfileSize): string {
 function getContainerSize(size: ProfileSize): string {
   switch (size) {
     case "small":
-      return "w-9 h-9";
+      return "w-8 h-8";
     case "medium":
       return "w-11 h-11";
     case "large":
@@ -68,9 +42,9 @@ function getContainerSize(size: ProfileSize): string {
 function getImageSizeStyle(size: ProfileSize): string {
   switch (size) {
     case "small":
-      return "w=[34px] h-[34px] p-[0.1rem]";
+      return "w=[32px] h-[32px] p-[0.1rem]";
     case "medium":
-      return "w-[42px] h-[42px] p-[0.1rem]";
+      return "w-[40px] h-[40px] p-[0.1rem]";
     case "large":
       return "w-18 h-18 p-[0.2rem]";
   }

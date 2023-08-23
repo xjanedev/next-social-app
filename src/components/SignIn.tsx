@@ -12,7 +12,7 @@ export default function SignIn({ providers, callbackUrl }: Props) {
   return (
     <div className='fixed inset-0 flex justify-center items-center'>
       <div className='text-center'>
-        <div className='mb-4'>📓 share your diary</div>
+        <div className='mb-4'>📓 share your photo diary</div>
         {Object.values(providers).map(({ name, id }) => (
           <div key={id}>
             <Button

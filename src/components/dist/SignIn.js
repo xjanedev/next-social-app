@@ -7,7 +7,7 @@ function SignIn(_a) {
     var providers = _a.providers, callbackUrl = _a.callbackUrl;
     return (React.createElement("div", { className: 'fixed inset-0 flex justify-center items-center' },
         React.createElement("div", { className: 'text-center' },
-            React.createElement("div", { className: 'mb-4' }, "\uD83D\uDCD3 share your diary"),
+            React.createElement("div", { className: 'mb-4' }, "\uD83D\uDCD3 share your photo diary"),
             Object.values(providers).map(function (_a) {
                 var name = _a.name, id = _a.id;
                 return (React.createElement("div", { key: id },

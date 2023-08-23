@@ -6,5 +6,6 @@ export { default as NewIcon } from "./NewIcon";
 export { default as NewFillIcon } from "./NewFillIcon";
 export { default as BsHeart } from "./HeartIcon";
 export { default as BsBookmark } from "./BookmarkIcon";
+export { default as CgClose } from "./ClosedIcon";
 
 // 모듈 내보내기
