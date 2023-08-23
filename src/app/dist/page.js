@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var FollowingBar_1 = require("@/components/FollowingBar");
 var PostList_1 = require("@/components/PostList");
 var next_auth_1 = require("next-auth");
 var route_1 = require("./api/auth/[...nextauth]/route");
@@ -56,7 +55,6 @@ function HomePage() {
                         navigation_1.redirect("/auth/signin"); // session 있다면 로그인 페이지로 이동
                     }
                     return [2 /*return*/, (React.createElement("section", null,
-                            React.createElement(FollowingBar_1["default"], null),
                             React.createElement(PostList_1["default"], null)))];
             }
         });

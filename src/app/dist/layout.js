@@ -20,8 +20,9 @@ function RootLayout(_a) {
         React.createElement("body", { className: 'w-full max-w-screen-xl overflow-auto mx-auto' },
             React.createElement(AuthContext_1["default"], null,
                 React.createElement("header", { className: 'sticky top-0 bg-white border-b' },
-                    React.createElement(Navbar_1["default"], null))),
-            React.createElement("main", null,
-                React.createElement(SWRConfigContext_1["default"], null, children)))));
+                    React.createElement(Navbar_1["default"], null)),
+                React.createElement("main", null,
+                    React.createElement(SWRConfigContext_1["default"], null, children))),
+            React.createElement("div", { id: 'portal' }))));
 }
 exports["default"] = RootLayout;

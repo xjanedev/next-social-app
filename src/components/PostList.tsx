@@ -12,10 +12,16 @@ export default function PostList() {
   return (
     <div className='flex justify-center items-center'>
       <section className='w-[580px] mt-4'>
-        {loading && (
+        {loading ? (
           <div className='text-center mt-32'>
             <LoadingSpinner color='black' />
           </div>
+        ) : (
+          (!posts || posts.length === 0) && (
+            <p className='text-center mt-48'>
+              {"you don't have any post yet!"}
+            </p>
+          )
         )}
         {posts && (
           <ul>

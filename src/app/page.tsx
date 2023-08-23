@@ -1,4 +1,3 @@
-import FollowingBar from "@/components/FollowingBar";
 import PostList from "@/components/PostList";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
@@ -17,7 +16,6 @@ export default async function HomePage() {
 
   return (
     <section>
-      <FollowingBar />
       <PostList />
     </section>
   );

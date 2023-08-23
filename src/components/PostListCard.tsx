@@ -1,12 +1,13 @@
-import React from "react";
-import Profile from "@/components/ui/Profile";
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 import { SimplePost } from "@/model/post";
-import HeartIcon from "./ui/icons/HeartIcon";
-import BookmarkIcon from "./ui/icons/BookmarkIcon";
-import { parseDate } from "@/util/date";
 import CommentForm from "./CommentForm";
 import ActionBar from "./ActionBar";
+import ModalPortal from "./ui/ModalPortal";
+import PostModal from "./PostModal";
+import PostDetail from "./PostDetail";
+import PostUserProfile from "./ui/PostUserProfile";
 
 interface Props {
   post: SimplePost;
@@ -15,19 +16,19 @@ interface Props {
 
 export default function PostListCard({ post, priority = false }: Props) {
   const { userImage, username, image, createdAt, likes, text } = post;
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <article className='rounded-3xl border border-gray-20'>
-      <div className='flex items-center p-3 mb-[-14px]'>
-        <Profile image={userImage} size='medium' />
-        <span className='text-gray-900 font-bold ml-2'>{username}</span>
-      </div>
+      <PostUserProfile image={userImage} username={username} />
       <Image
         className='w-[580px] h-[500px] rounded-3xl object-cover aspect-square p-3'
         src={image}
         alt={`photo by ${username}`}
         width={500} // 외부이미지 크기지정
         height={500}
-        property={priority} // 중요한 이미지 먼저 로딩하게 해준다.
+        priority={priority}
+        onClick={() => setOpenModal(true)}
       />
       <ActionBar
         likes={likes}
@@ -36,6 +37,13 @@ export default function PostListCard({ post, priority = false }: Props) {
         createdAt={createdAt}
       />
       <CommentForm />
+      {openModal && (
+        <ModalPortal>
+          <PostModal onClose={() => setOpenModal(false)}>
+            <PostDetail post={post} />
+          </PostModal>
+        </ModalPortal>
+      )}
     </article>
   );
 }
