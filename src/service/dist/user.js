@@ -47,29 +47,64 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getPost = exports.getFollowingPostsOf = void 0;
+exports.getUserForProfile = exports.searchUsers = exports.getUserByUsername = exports.addUser = void 0;
 var sanity_1 = require("./sanity");
-var simplePostProjection = "\n    ...,\n    \"username\": author->username,\n    \"userImage\": author->image,\n    \"image\": photo,\n    \"likes\": likes[]->username,\n    \"text\": comments[0].comment,\n    \"comments\": count(comments),\n    \"id\":_id,\n    \"createdAt\":_createdAt\n";
-function getFollowingPostsOf(username) {
+function addUser(_a) {
+    var id = _a.id, username = _a.username, email = _a.email, name = _a.name, image = _a.image;
     return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2 /*return*/, sanity_1.client
-                    .fetch("*[_type ==\"post\" && author->username == \"" + username + "\"\n          || author._ref in *[_type == \"user\" && username == \"" + username + "\"].following[]._ref]\n          | order(_createdAt desc){\n          " + simplePostProjection + "\n        }")
-                    .then(function (posts) {
-                    return posts.map(function (post) { return (__assign(__assign({}, post), { image: sanity_1.urlFor(post.image) })); });
+        return __generator(this, function (_b) {
+            return [2 /*return*/, sanity_1.client.createIfNotExists({
+                    _id: id,
+                    _type: "user",
+                    username: username,
+                    email: email,
+                    name: name,
+                    image: image,
+                    following: [],
+                    followers: [],
+                    bookmarks: []
                 })];
         });
     });
 }
-exports.getFollowingPostsOf = getFollowingPostsOf;
-function getPost(id) {
+exports.addUser = addUser;
+function getUserByUsername(username) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, sanity_1.client
-                    .fetch("*[_type == \"post\" && _id == \"" + id + "\"][0] {\n    ...,\n    \"username\": author-> username,\n    \"userImage\":author-> image,\n    \"image\": photo,\n    \"likes\": likes[]-> username,\n    comments[]{comment, \"username\": author -> username, \"image\": author->image},\n    \"id\": _id,\n    \"createdAt\": _createdAt\n  }")
-                    .then(function (post) { return (__assign(__assign({}, post), { image: sanity_1.urlFor(post.image) })); })];
+            return [2 /*return*/, sanity_1.client.fetch("*[_type == \"user\" && username == \"" + username + "\"][0]{\n      ...,\n      \"id\":_id,\n      following[]->{username,image},\n      followers[]->{username,image},\n      \"bookmarks\":bookmarks[]->_id\n    }")];
         });
     });
 }
-exports.getPost = getPost;
-// 세니티에게 클라이언트 데이터 요청/ 업데이트/ 생성 역할을 한다.
+exports.getUserByUsername = getUserByUsername;
+function searchUsers(keyword) {
+    return __awaiter(this, void 0, void 0, function () {
+        var query;
+        return __generator(this, function (_a) {
+            query = keyword
+                ? "&& (name match \"*" + keyword + "*\") || (username match \"*" + keyword + "*\")"
+                : "";
+            return [2 /*return*/, sanity_1.client
+                    .fetch("*[_type ==\"user\" " + query + "]{\n      ...,\n      \"following\": count(following),\n      \"followers\": count(followers),\n    }\n    ")
+                    .then(function (users) {
+                    return users.map(function (user) {
+                        var _a, _b;
+                        return (__assign(__assign({}, user), { following: (_a = user.following) !== null && _a !== void 0 ? _a : 0, followers: (_b = user.followers) !== null && _b !== void 0 ? _b : 0 }));
+                    });
+                })];
+        });
+    });
+}
+exports.searchUsers = searchUsers;
+function getUserForProfile(username) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, sanity_1.client
+                    .fetch("*[_type == \"user\" && username == \"" + username + "\"][0]{\n      ...,\n      \"id\":_id,\n      \"following\": count(following),\n      \"followers\": count(followers),\n      \"posts\": count(*[_type==\"post\" && author->username == \"" + username + "\"])\n    }\n    ")
+                    .then(function (user) {
+                    var _a, _b, _c;
+                    return (__assign(__assign({}, user), { following: (_a = user.following) !== null && _a !== void 0 ? _a : 0, followers: (_b = user.followers) !== null && _b !== void 0 ? _b : 0, posts: (_c = user.posts) !== null && _c !== void 0 ? _c : 0 }));
+                })];
+        });
+    });
+}
+exports.getUserForProfile = getUserForProfile;

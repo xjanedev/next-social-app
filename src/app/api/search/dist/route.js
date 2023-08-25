@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -47,29 +36,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getPost = exports.getFollowingPostsOf = void 0;
-var sanity_1 = require("./sanity");
-var simplePostProjection = "\n    ...,\n    \"username\": author->username,\n    \"userImage\": author->image,\n    \"image\": photo,\n    \"likes\": likes[]->username,\n    \"text\": comments[0].comment,\n    \"comments\": count(comments),\n    \"id\":_id,\n    \"createdAt\":_createdAt\n";
-function getFollowingPostsOf(username) {
+exports.GET = void 0;
+var user_1 = require("@/service/user");
+var server_1 = require("next/server");
+function GET() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, sanity_1.client
-                    .fetch("*[_type ==\"post\" && author->username == \"" + username + "\"\n          || author._ref in *[_type == \"user\" && username == \"" + username + "\"].following[]._ref]\n          | order(_createdAt desc){\n          " + simplePostProjection + "\n        }")
-                    .then(function (posts) {
-                    return posts.map(function (post) { return (__assign(__assign({}, post), { image: sanity_1.urlFor(post.image) })); });
-                })];
+            return [2 /*return*/, user_1.searchUsers().then(function (data) { return server_1.NextResponse.json(data); })];
         });
     });
 }
-exports.getFollowingPostsOf = getFollowingPostsOf;
-function getPost(id) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2 /*return*/, sanity_1.client
-                    .fetch("*[_type == \"post\" && _id == \"" + id + "\"][0] {\n    ...,\n    \"username\": author-> username,\n    \"userImage\":author-> image,\n    \"image\": photo,\n    \"likes\": likes[]-> username,\n    comments[]{comment, \"username\": author -> username, \"image\": author->image},\n    \"id\": _id,\n    \"createdAt\": _createdAt\n  }")
-                    .then(function (post) { return (__assign(__assign({}, post), { image: sanity_1.urlFor(post.image) })); })];
-        });
-    });
-}
-exports.getPost = getPost;
-// 세니티에게 클라이언트 데이터 요청/ 업데이트/ 생성 역할을 한다.
+exports.GET = GET;

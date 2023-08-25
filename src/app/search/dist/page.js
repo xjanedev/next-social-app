@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
-var react_1 = require("react");
+var UserSearch_1 = require("@/components/UserSearch");
 function SearchPage() {
-    return react_1["default"].createElement("div", null, "Search Page");
+    return React.createElement(UserSearch_1["default"], null);
 }
 exports["default"] = SearchPage;

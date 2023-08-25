@@ -43,3 +43,5 @@ export async function getPost(id: string) {
     )
     .then(post => ({ ...post, image: urlFor(post.image) }));
 }
+
+// 세니티에게 클라이언트 데이터 요청/ 업데이트/ 생성 역할을 한다.
