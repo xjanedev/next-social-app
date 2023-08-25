@@ -20,7 +20,7 @@ export default function PostModal({ onClose, children }: Props) {
       >
         <ClosedIcon />
       </button>
-      <div className='bg-white w-2/3 h-3/4 max-w-7xl rounded-3xl'>
+      <div className='bg-white w-[700px] h-[700px] max-w-7xl rounded-3xl'>
         {children}
       </div>
     </section>
