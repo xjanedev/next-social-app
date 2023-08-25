@@ -10,6 +10,6 @@ function PostModal(_a) {
         } },
         React.createElement("button", { className: 'fixed top-0 right-0 p-8 text-white', onClick: function () { return onClose(); } },
             React.createElement(ClosedIcon_1["default"], null)),
-        React.createElement("div", { className: 'bg-white w-[700px] h-[700px] max-w-7xl rounded-3xl' }, children)));
+        React.createElement("div", { className: 'bg-white w-[580px] h-[700px] max-w-7xl rounded-3xl' }, children)));
 }
 exports["default"] = PostModal;
