@@ -47,7 +47,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getPost = exports.getFollowingPostsOf = void 0;
+exports.getSavedPostsOf = exports.getlikedPostsOf = exports.getPostOf = exports.getPost = exports.getFollowingPostsOf = void 0;
 var sanity_1 = require("./sanity");
 var simplePostProjection = "\n    ...,\n    \"username\": author->username,\n    \"userImage\": author->image,\n    \"image\": photo,\n    \"likes\": likes[]->username,\n    \"text\": comments[0].comment,\n    \"comments\": count(comments),\n    \"id\":_id,\n    \"createdAt\":_createdAt\n";
 function getFollowingPostsOf(username) {
@@ -72,4 +72,39 @@ function getPost(id) {
     });
 }
 exports.getPost = getPost;
-// 세니티에게 클라이언트 데이터 요청/ 업데이트/ 생성 역할을 한다.
+function getPostOf(username) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, sanity_1.client
+                    .fetch("*[_type == \"post\" && author->username == \"" + username + "\"]\n    | order(_createdAt desc) {\n      " + simplePostProjection + "\n    }")
+                    .then(function (posts) {
+                    return posts.map(function (post) { return (__assign(__assign({}, post), { image: sanity_1.urlFor(post.image) })); });
+                })];
+        });
+    });
+}
+exports.getPostOf = getPostOf;
+function getlikedPostsOf(username) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, sanity_1.client
+                    .fetch("*[_type == \"post\" && \"" + username + "\" in likes[] ->username]\n    | order(_createdAt desc) {\n      " + simplePostProjection + "\n    }")
+                    .then(function (posts) {
+                    return posts.map(function (post) { return (__assign(__assign({}, post), { image: sanity_1.urlFor(post.image) })); });
+                })];
+        });
+    });
+}
+exports.getlikedPostsOf = getlikedPostsOf;
+function getSavedPostsOf(username) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, sanity_1.client
+                    .fetch("*[_type == \"post\" && _id in *[_type == \"user\" && username == \"" + username + "\"].bookmarks[]._ref]\n    | order(_createdAt desc) {\n      " + simplePostProjection + "\n    }")
+                    .then(function (posts) {
+                    return posts.map(function (post) { return (__assign(__assign({}, post), { image: sanity_1.urlFor(post.image) })); });
+                })];
+        });
+    });
+}
+exports.getSavedPostsOf = getSavedPostsOf;

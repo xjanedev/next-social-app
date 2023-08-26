@@ -9,24 +9,24 @@ interface Props {
   user: ProfileUser;
 }
 
-export default function FollowBtn({ user }: Props) {
+export default function FollowButton({ user }: Props) {
   const { username } = user;
-  const { data: loggedInUser } = useSWR<DetailUser>("/api/me");
-  const showButton = loggedInUser && loggedInUser.username !== user.username;
+  const { data: loggedInUser } = useSWR<HomeUser>("/api/me");
+
+  const showButton = loggedInUser && loggedInUser.username !== username;
   const following =
     loggedInUser &&
-    loggedInUser.following.find(
-      (item: { username: string }) => item.username === username
-    );
+    loggedInUser.following.find(item => item.username === username);
 
   const text = following ? "Unfollow" : "Follow";
+
   return (
     <>
       {showButton && (
         <ToggleButton
           text={text}
           onClick={() => {}}
-          black={text === "Unfollow"}
+          red={text === "Unfollow"}
         />
       )}
     </>

@@ -44,4 +44,41 @@ export async function getPost(id: string) {
     .then(post => ({ ...post, image: urlFor(post.image) }));
 }
 
-// 세니티에게 클라이언트 데이터 요청/ 업데이트/ 생성 역할을 한다.
+export async function getPostOf(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && author->username == "${username}"]
+    | order(_createdAt desc) {
+      ${simplePostProjection}
+    }`
+    )
+    .then(posts =>
+      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+    );
+}
+
+export async function getlikedPostsOf(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && "${username}" in likes[] ->username]
+    | order(_createdAt desc) {
+      ${simplePostProjection}
+    }`
+    )
+    .then(posts =>
+      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+    );
+}
+
+export async function getSavedPostsOf(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && _id in *[_type == "user" && username == "${username}"].bookmarks[]._ref]
+    | order(_createdAt desc) {
+      ${simplePostProjection}
+    }`
+    )
+    .then(posts =>
+      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+    );
+}

@@ -19,10 +19,12 @@ var NewIcon_1 = require("./NewIcon");
 __createBinding(exports, NewIcon_1, "default", "NewIcon");
 var NewFillIcon_1 = require("./NewFillIcon");
 __createBinding(exports, NewFillIcon_1, "default", "NewFillIcon");
-var HeartIcon_1 = require("./HeartIcon");
-__createBinding(exports, HeartIcon_1, "default", "BsHeart");
 var BookmarkIcon_1 = require("./BookmarkIcon");
 __createBinding(exports, BookmarkIcon_1, "default", "BsBookmark");
 var ClosedIcon_1 = require("./ClosedIcon");
 __createBinding(exports, ClosedIcon_1, "default", "CgClose");
+var HeartIcon_1 = require("./HeartIcon");
+__createBinding(exports, HeartIcon_1, "default", "AiOutlineHeart");
+var PostIcon_1 = require("./PostIcon");
+__createBinding(exports, PostIcon_1, "default", "MdGridOn");
 // 모듈 내보내기
