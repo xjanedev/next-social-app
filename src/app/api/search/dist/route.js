@@ -36,9 +36,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.GET = void 0;
+exports.GET = exports.dynamic = void 0;
 var user_1 = require("@/service/user");
 var server_1 = require("next/server");
+exports.dynamic = "force-dynamic";
 function GET() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {

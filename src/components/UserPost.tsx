@@ -21,11 +21,17 @@ export default function UserPost({ user: { username } }: Props) {
 
   return (
     <section>
-      <ul>
+      <ul className='flex justify-center uppercase'>
         {tabs.map(({ type, icon }) => (
-          <li key={type} onClick={() => setQuery(type)}>
-            <button>{icon}</button>
-            <span>{type}</span>
+          <li
+            className={`mx-10 p-3 cursor-pointer border-x-black ${
+              type === query && "font-bold border-t"
+            }`}
+            key={type}
+            onClick={() => setQuery(type)}
+          >
+            <button className='scale-150 md:scale-100'>{icon}</button>
+            <span className='hidden md:inline'>{type}</span>
           </li>
         ))}
       </ul>

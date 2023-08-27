@@ -14,11 +14,11 @@ export default function PostGrid({ username, query }: Props) {
     data: posts,
     isLoading,
     error,
-  } = useSWR(`/api/users/${username}/${query}`);
+  } = useSWR<SimplePost[]>(`/api/users/${username}/${query}`);
 
   return (
     <div>
-      {isLoading && <CgSpinner />}
+      {isLoading && <CgSpinner className='w-full mt-16 text-center' />}
       <ul className='grid grid-cols-3 gap-4 py-4 px-8'>
         {posts &&
           posts.map((post: SimplePost, index: number) => (

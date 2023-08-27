@@ -4,6 +4,7 @@ import ModalPortal from "./ui/ModalPortal";
 import PostDetail from "./PostDetail";
 import PostModal from "./PostModal";
 import { useState } from "react";
+import { signIn, useSession } from "next-auth/react";
 
 interface Props {
   post: SimplePost;
@@ -12,6 +13,13 @@ interface Props {
 export default function PostGridCard({ post, priority = false }: Props) {
   const [openModal, setOpenModal] = useState(false);
   const { image, username } = post;
+  const { data: sesesion } = useSession(); // usesession hook 사용한다.
+  const handleOpenPost = () => {
+    if (!sesesion?.user) {
+      return signIn();
+    }
+    setOpenModal(true);
+  };
 
   return (
     <div className='relative w-full aspect-square'>
@@ -22,6 +30,7 @@ export default function PostGridCard({ post, priority = false }: Props) {
         fill
         sizes='650px'
         priority={priority}
+        onClick={handleOpenPost}
       />
       {openModal && (
         <ModalPortal>
