@@ -1,17 +1,15 @@
 "use client";
 import { SimplePost } from "@/model/post";
-import { ClipLoader } from "react-spinners";
 import useSWR from "swr";
 import PostListCard from "./PostListCard";
 import LoadingSpinner from "./ui/LoadingSpinner";
 
 export default function PostList() {
   const { data: posts, isLoading: loading } = useSWR<SimplePost[]>("/api/post");
-  console.log(posts);
 
   return (
     <div className='flex justify-center items-center'>
-      <section className='w-[580px] mt-4'>
+      <section className='w-[580px] pt-9'>
         {loading ? (
           <div className='text-center mt-32'>
             <LoadingSpinner color='black' />

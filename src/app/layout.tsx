@@ -11,8 +11,11 @@ const NotoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "feeds",
-  description: "social app",
+  title: {
+    default: "photodairy",
+    template: "photodairy | %s",
+  },
+  description: "photos",
 };
 
 export default function RootLayout({
