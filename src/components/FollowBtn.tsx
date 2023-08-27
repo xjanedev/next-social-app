@@ -11,7 +11,7 @@ interface Props {
 
 export default function FollowButton({ user }: Props) {
   const { username } = user;
-  const { data: loggedInUser } = useSWR<HomeUser>("/api/me");
+  const { data: loggedInUser } = useSWR<DetailUser>("/api/me");
 
   const showButton = loggedInUser && loggedInUser.username !== username;
   const following =
@@ -26,7 +26,7 @@ export default function FollowButton({ user }: Props) {
         <ToggleButton
           text={text}
           onClick={() => {}}
-          red={text === "Unfollow"}
+          black={text === "Unfollow"}
         />
       )}
     </>
