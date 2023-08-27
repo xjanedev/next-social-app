@@ -1,7 +1,13 @@
 "use strict";
 exports.__esModule = true;
-var react_1 = require("react");
+exports.metadata = exports.dynamic = void 0;
+var UserSearch_1 = require("@/components/UserSearch");
+exports.dynamic = "force-dynamic";
+exports.metadata = {
+    title: "user search",
+    description: "search users to follow"
+};
 function SearchPage() {
-    return react_1["default"].createElement("div", null, "Search Page");
+    return React.createElement(UserSearch_1["default"], null);
 }
 exports["default"] = SearchPage;

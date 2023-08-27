@@ -40,7 +40,7 @@ export default function Navbar() {
   return (
     <div className='flex justify-between items-center px-8'>
       <Link href='/'>
-        <h1 className='text-2xl font-bold'>dear diary,</h1>
+        <h1 className='text-2xl font-bold'>📓</h1>
       </Link>
       <nav>
         <ul className='flex gap-4 items-center p-4'>

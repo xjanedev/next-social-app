@@ -30,7 +30,7 @@ function Navbar() {
     var user = session === null || session === void 0 ? void 0 : session.user;
     return (React.createElement("div", { className: 'flex justify-between items-center px-8' },
         React.createElement(link_1["default"], { href: '/' },
-            React.createElement("h1", { className: 'text-2xl font-bold' }, "dear diary,")),
+            React.createElement("h1", { className: 'text-2xl font-bold' }, "\uD83D\uDCD3")),
         React.createElement("nav", null,
             React.createElement("ul", { className: 'flex gap-4 items-center p-4' },
                 menu.map(function (_a) {

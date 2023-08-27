@@ -7,7 +7,6 @@ import LoadingSpinner from "./ui/LoadingSpinner";
 
 export default function PostList() {
   const { data: posts, isLoading: loading } = useSWR<SimplePost[]>("/api/post");
-  console.log(posts);
 
   return (
     <div className='flex justify-center items-center'>
