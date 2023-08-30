@@ -25,7 +25,7 @@ export default function PostListCard({ post, priority = false }: Props) {
         className='w-[580px] h-[500px] rounded-3xl object-cover aspect-square p-3'
         src={image}
         alt={`photo by ${username}`}
-        width={500} // 외부이미지 크기지정
+        width={500}
         height={500}
         priority={priority}
         onClick={() => setOpenModal(true)}
