@@ -2,7 +2,6 @@
 
 import { ProfileUser } from "@/model/user";
 import { useState } from "react";
-import useSWR from "swr";
 import BookmarkIcon from "./ui/icons/BookmarkIcon";
 import HeartIcon from "./ui/icons/HeartIcon";
 import PostIcon from "./ui/icons/PostIcon";
@@ -30,8 +29,8 @@ export default function UserPost({ user: { username } }: Props) {
             key={type}
             onClick={() => setQuery(type)}
           >
-            <button className='scale-150 md:scale-100'>{icon}</button>
-            <span className='hidden md:inline'>{type}</span>
+            <button className='scale-150 md:scale-100 mr-3'>{icon}</button>
+            <span className='hidden md:inline text-sm'>{type}</span>
           </li>
         ))}
       </ul>

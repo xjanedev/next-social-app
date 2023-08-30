@@ -1,4 +1,4 @@
-type ProfileSize = "small" | "medium";
+type ProfileSize = "small" | "medium" | "big";
 
 interface Props {
   image?: string | null;
@@ -34,6 +34,8 @@ function getContainerSize(size: ProfileSize): string {
       return "w-8 h-8";
     case "medium":
       return "w-10 h-10";
+    case "big":
+      return "w-20 h-20";
   }
 }
 
@@ -43,5 +45,7 @@ function getImageSizeStyle(size: ProfileSize): string {
       return "w=[26px] h-[26px] p-[0.1rem]";
     case "medium":
       return "w-[30px] h-[30px]";
+    case "big":
+      return "w=[48px] h-[80px] p-[0.3rem]";
   }
 }
