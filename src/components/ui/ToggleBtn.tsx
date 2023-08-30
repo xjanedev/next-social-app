@@ -4,7 +4,7 @@ interface Props {
   onIcon: React.ReactNode;
   offIcon: React.ReactNode;
 }
-export default function ToggleButton({
+export default function ToggleBtn({
   toggled,
   onToggle,
   onIcon,

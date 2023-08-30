@@ -1,4 +1,5 @@
 "use client";
+
 import { SimplePost } from "@/model/post";
 import useSWR from "swr";
 import PostListCard from "./PostListCard";

@@ -1,27 +1,37 @@
-import HeartIcon from "./ui/icons/HeartIcon";
 import BookmarkIcon from "./ui/icons/BookmarkIcon";
+import HeartIcon from "./ui/icons/HeartIcon";
 import { parseDate } from "@/util/date";
 import { useState } from "react";
-import ToggleBtn from "./ui/ToggleBtn";
 import HeartFillIcon from "./ui/icons/HeartFillIcon";
 import BookmarkFillIcon from "./ui/icons/BookmarkFillIcon";
-
+import { SimplePost } from "@/model/post";
+import { useSession } from "next-auth/react";
+import { useSWRConfig } from "swr";
+import ToggleBtn from "./ui/ToggleBtn";
 interface Props {
-  likes: string[];
-  username: string;
-  createdAt: string;
-  text?: string;
+  post: SimplePost;
 }
 
-export default function ActionBar({ likes, username, text, createdAt }: Props) {
-  const [liked, setLiked] = useState(false);
+export default function ActionBar({ post }: Props) {
+  const { id, likes, username, text, createdAt } = post;
+  const { data: session } = useSession();
+  const user = session?.user;
+  const liked = user ? likes.includes(user.username) : false;
   const [bookmarked, setBookmarked] = useState(false);
+  const { mutate } = useSWRConfig();
+  const handleLike = (like: boolean) => {
+    fetch("api/likes", {
+      method: "PUT",
+      body: JSON.stringify({ id, like }),
+    }).then(() => mutate("/api/post"));
+  };
+
   return (
-    <div className='h-auto'>
-      <div className='flex justify-between mt-2 px-4'>
+    <>
+      <div className='flex justify-between my-2 px-4'>
         <ToggleBtn
           toggled={liked}
-          onToggle={setLiked}
+          onToggle={handleLike}
           onIcon={<HeartFillIcon />}
           offIcon={<HeartIcon />}
         />
@@ -46,6 +56,6 @@ export default function ActionBar({ likes, username, text, createdAt }: Props) {
           {parseDate(createdAt)}
         </p>
       </div>
-    </div>
+    </>
   );
 }
