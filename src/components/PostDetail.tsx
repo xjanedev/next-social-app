@@ -16,10 +16,10 @@ export default function PostDetail({ post }: Props) {
   const comments = data?.comments;
 
   return (
-    <section className='flex w-full h-full'>
-      <div className='relative basis-3/5'>
+    <section className='flex flex-col w-full h-full'>
+      <div className='relative basis-5/6'>
         <Image
-          className='object-cover rounded-tl-3xl rounded-bl-3xl'
+          className='object-cover rounded-tl-3xl rounded-tr-3xl'
           src={image}
           alt={`photo by ${username}`}
           priority
@@ -27,14 +27,13 @@ export default function PostDetail({ post }: Props) {
           sizes='650px'
         />
       </div>
-      <div className='w-full basis-2/5 flex flex-col'>
+      <div className='w-full flex flex-col'>
         <PostUserProfile image={userImage} username={username} />
         <ul className='border-t border-gray-200 h-full overflow-y-auto p-4 mb-1'>
           {comments &&
             comments.map(({ username: commentUsername, comment }, index) => (
-              <li key={index} className='flex items-center mb-1'>
-                <Profile image={image} size='small' />
-                <div className='ml-2'>
+              <li key={index} className='flex items-center'>
+                <div>
                   <span className='font-bold mr-3'>{commentUsername}</span>
                   <span>{comment}</span>
                 </div>

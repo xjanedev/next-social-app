@@ -1,6 +1,9 @@
-import React from "react";
-import { BsHeart } from "react-icons/bs";
+import { AiOutlineHeart } from "react-icons/ai";
 
-export default function HeartIcon() {
-  return <BsHeart className='w-6 h-6' />;
+interface Props {
+  className?: string;
+}
+
+export default function PostIcon({ className }: Props) {
+  return <AiOutlineHeart className={className || "w-7 h-7"} />;
 }

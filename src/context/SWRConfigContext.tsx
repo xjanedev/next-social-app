@@ -2,9 +2,9 @@
 
 import { SWRConfig } from "swr";
 
-type Props = {
+interface Props {
   children: React.ReactNode;
-};
+}
 
 export default function SWRConfigContext({ children }: Props) {
   return (

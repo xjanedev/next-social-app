@@ -33,19 +33,19 @@ function getContainerSize(size: ProfileSize): string {
     case "small":
       return "w-8 h-8";
     case "medium":
-      return "w-11 h-11";
+      return "w-10 h-10";
     case "big":
-      return "w-[72px] h-[72px]";
+      return "w-20 h-20";
   }
 }
 
 function getImageSizeStyle(size: ProfileSize): string {
   switch (size) {
     case "small":
-      return "w=[32px] h-[32px] p-[0.1rem]";
+      return "w=[26px] h-[26px] p-[0.1rem]";
     case "medium":
-      return "w-[40px] h-[40px] p-[0.1rem]";
+      return "w-[30px] h-[30px]";
     case "big":
-      return "w-18 h-18 p-[0.2rem]";
+      return "w=[48px] h-[80px] p-[0.3rem]";
   }
 }
