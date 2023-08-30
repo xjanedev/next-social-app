@@ -18,7 +18,7 @@ function PostDetail(_a) {
             React.createElement(PostUserProfile_1["default"], { image: userImage, username: username }),
             React.createElement("ul", { className: 'border-t border-gray-200 h-full overflow-y-auto p-4 mb-1' }, comments &&
                 comments.map(function (_a, index) {
-                    var image = _a.image, commentUsername = _a.username, comment = _a.comment;
+                    var commentUsername = _a.username, comment = _a.comment;
                     return (React.createElement("li", { key: index, className: 'flex items-center mb-1' },
                         React.createElement(Profile_1["default"], { image: image, size: 'small' }),
                         React.createElement("div", { className: 'ml-2' },

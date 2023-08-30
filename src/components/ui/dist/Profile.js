@@ -18,7 +18,7 @@ function getContainerSize(size) {
             return "w-8 h-8";
         case "medium":
             return "w-11 h-11";
-        case "large":
+        case "big":
             return "w-[72px] h-[72px]";
     }
 }
@@ -28,7 +28,7 @@ function getImageSizeStyle(size) {
             return "w=[32px] h-[32px] p-[0.1rem]";
         case "medium":
             return "w-[40px] h-[40px] p-[0.1rem]";
-        case "large":
+        case "big":
             return "w-18 h-18 p-[0.2rem]";
     }
 }
