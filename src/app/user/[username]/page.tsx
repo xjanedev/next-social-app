@@ -17,10 +17,12 @@ export default async function UserPage({ params: { username } }: Props) {
     notFound();
   }
   return (
-    <section className='w-full'>
-      <UserProfile user={user} />
-      <UserPost user={user} />
-    </section>
+    <div className='w-full flex justify-center'>
+      <section className='w-[580px]'>
+        <UserProfile user={user} />
+        <UserPost user={user} />
+      </section>
+    </div>
   );
 }
 

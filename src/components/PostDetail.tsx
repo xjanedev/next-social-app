@@ -31,17 +31,14 @@ export default function PostDetail({ post }: Props) {
         <PostUserProfile image={userImage} username={username} />
         <ul className='border-t border-gray-200 h-full overflow-y-auto p-4 mb-1'>
           {comments &&
-            comments.map(
-              ({ image, username: commentUsername, comment }, index) => (
-                <li key={index} className='flex items-center mb-1'>
-                  <Profile image={image} size='small' />
-                  <div className='ml-2'>
-                    <span className='font-bold mr-3'>{commentUsername}</span>
-                    <span>{comment}</span>
-                  </div>
-                </li>
-              )
-            )}
+            comments.map(({ username: commentUsername, comment }, index) => (
+              <li key={index} className='flex items-center'>
+                <div>
+                  <span className='font-bold mr-3'>{commentUsername}</span>
+                  <span>{comment}</span>
+                </div>
+              </li>
+            ))}
         </ul>
         <ActionBar likes={likes} username={username} createdAt={createdAt} />
         <CommentForm />
