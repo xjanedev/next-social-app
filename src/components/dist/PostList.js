@@ -1,11 +1,11 @@
 "use client";
 "use strict";
 exports.__esModule = true;
-var swr_1 = require("swr");
 var PostListCard_1 = require("./PostListCard");
 var LoadingSpinner_1 = require("./ui/LoadingSpinner");
+var posts_1 = require("@/hooks/posts");
 function PostList() {
-    var _a = swr_1["default"]("/api/post"), posts = _a.data, loading = _a.isLoading;
+    var _a = posts_1["default"](), posts = _a.posts, loading = _a.isLoading; // 자체적으로 사용하지 않고 커스텀훅 쓰면됨
     return (React.createElement("div", { className: 'flex justify-center items-center' },
         React.createElement("section", { className: 'w-[580px] pt-9' },
             loading ? (React.createElement("div", { className: 'text-center mt-32' },

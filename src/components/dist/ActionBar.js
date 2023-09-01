@@ -7,8 +7,8 @@ var react_1 = require("react");
 var HeartFillIcon_1 = require("./ui/icons/HeartFillIcon");
 var BookmarkFillIcon_1 = require("./ui/icons/BookmarkFillIcon");
 var react_2 = require("next-auth/react");
-var swr_1 = require("swr");
 var ToggleBtn_1 = require("./ui/ToggleBtn");
+var posts_1 = require("@/hooks/posts");
 function ActionBar(_a) {
     var _b;
     var post = _a.post;
@@ -17,12 +17,11 @@ function ActionBar(_a) {
     var user = session === null || session === void 0 ? void 0 : session.user;
     var liked = user ? likes.includes(user.username) : false;
     var _c = react_1.useState(false), bookmarked = _c[0], setBookmarked = _c[1];
-    var mutate = swr_1.useSWRConfig().mutate;
+    var setLike = posts_1["default"]().setLike;
     var handleLike = function (like) {
-        fetch("api/likes", {
-            method: "PUT",
-            body: JSON.stringify({ id: id, like: like })
-        }).then(function () { return mutate("/api/post"); });
+        if (user) {
+            setLike(post, user.username, like);
+        }
     };
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { className: 'flex justify-between my-2 px-4' },

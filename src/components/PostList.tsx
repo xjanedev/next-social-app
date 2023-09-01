@@ -1,12 +1,11 @@
 "use client";
 
-import { SimplePost } from "@/model/post";
-import useSWR from "swr";
 import PostListCard from "./PostListCard";
 import LoadingSpinner from "./ui/LoadingSpinner";
+import usePosts from "@/hooks/posts";
 
 export default function PostList() {
-  const { data: posts, isLoading: loading } = useSWR<SimplePost[]>("/api/post");
+  const { posts, isLoading: loading } = usePosts(); // 자체적으로 사용하지 않고 커스텀훅 쓰면됨
 
   return (
     <div className='flex justify-center items-center'>
