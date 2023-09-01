@@ -5,7 +5,7 @@ var PostListCard_1 = require("./PostListCard");
 var LoadingSpinner_1 = require("./ui/LoadingSpinner");
 var posts_1 = require("@/hooks/posts");
 function PostList() {
-    var _a = posts_1["default"](), posts = _a.posts, loading = _a.isLoading; // 자체적으로 사용하지 않고 커스텀훅 쓰면됨
+    var _a = posts_1["default"](), posts = _a.posts, loading = _a.isLoading; // 커스텀 훅 사용
     return (React.createElement("div", { className: 'flex justify-center items-center' },
         React.createElement("section", { className: 'w-[580px] pt-9' },
             loading ? (React.createElement("div", { className: 'text-center mt-32' },

@@ -5,7 +5,7 @@ import LoadingSpinner from "./ui/LoadingSpinner";
 import usePosts from "@/hooks/posts";
 
 export default function PostList() {
-  const { posts, isLoading: loading } = usePosts(); // 자체적으로 사용하지 않고 커스텀훅 쓰면됨
+  const { posts, isLoading: loading } = usePosts(); // 커스텀 훅 사용
 
   return (
     <div className='flex justify-center items-center'>

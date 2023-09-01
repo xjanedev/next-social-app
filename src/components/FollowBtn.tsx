@@ -1,9 +1,10 @@
 "use client";
 
-import { DetailUser, ProfileUser } from "@/model/user";
+import { ProfileUser } from "@/model/user";
 import React from "react";
-import useSWR from "swr";
+
 import ToggleButton from "@/components/ui/ToggleButton";
+import useMe from "@/hooks/me";
 
 interface Props {
   user: ProfileUser;
@@ -11,12 +12,14 @@ interface Props {
 
 export default function FollowButton({ user }: Props) {
   const { username } = user;
-  const { data: loggedInUser } = useSWR<DetailUser>("/api/me");
+  const { user: loggedInUser } = useMe();
 
   const showButton = loggedInUser && loggedInUser.username !== username;
   const following =
     loggedInUser &&
-    loggedInUser.following.find(item => item.username === username);
+    loggedInUser.following.find(
+      (item: { username: string }) => item.username === username
+    );
 
   const text = following ? "Unfollow" : "Follow";
 
