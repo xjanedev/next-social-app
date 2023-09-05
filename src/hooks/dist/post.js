@@ -56,16 +56,6 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 exports.__esModule = true;
 var react_1 = require("react");
 var swr_1 = require("swr");
-function updateLike(id, like) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2 /*return*/, fetch("/api/likes", {
-                    method: "PUT",
-                    body: JSON.stringify({ id: id, like: like })
-                }).then(function (res) { return res.json(); })];
-        });
-    });
-}
 function addComment(id, comment) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -76,29 +66,20 @@ function addComment(id, comment) {
         });
     });
 }
-function usePosts() {
-    var _a = swr_1["default"]("/api/post"), posts = _a.data, isLoading = _a.isLoading, error = _a.error, mutate = _a.mutate;
-    var setLike = react_1.useCallback(function (post, username, like) {
-        var newPost = __assign(__assign({}, post), { likes: like
-                ? __spreadArrays(post.likes, [username]) : post.likes.filter(function (item) { return item !== username; }) });
-        var newPosts = posts === null || posts === void 0 ? void 0 : posts.map(function (p) { return (p.id === post.id ? newPost : p); });
-        return mutate(updateLike(post.id, like), {
-            optimisticData: newPosts,
-            populateCache: false,
-            revalidate: false,
-            rollbackOnError: true
-        });
-    }, [posts, mutate]);
-    var postComment = react_1.useCallback(function (post, comment) {
-        var newPost = __assign(__assign({}, post), { comments: post.comments + 1 });
-        var newPosts = posts === null || posts === void 0 ? void 0 : posts.map(function (p) { return (p.id === post.id ? newPost : p); });
+function useFullPost(postId) {
+    var _a = swr_1["default"]("/api/post/" + postId), post = _a.data, isLoading = _a.isLoading, error = _a.error, mutate = _a.mutate;
+    var globalMutate = swr_1.useSWRConfig().mutate;
+    var postComment = react_1.useCallback(function (comment) {
+        if (!post)
+            return;
+        var newPost = __assign(__assign({}, post), { comments: __spreadArrays(post.comments, [comment]) });
         return mutate(addComment(post.id, comment.comment), {
-            optimisticData: newPosts,
+            optimisticData: newPost,
             populateCache: false,
             revalidate: false,
             rollbackOnError: true
-        });
-    }, [posts, mutate]);
-    return { posts: posts, isLoading: isLoading, error: error, setLike: setLike, postComment: postComment };
+        }).then(function () { return globalMutate("/api/post"); });
+    }, [post, mutate, globalMutate]);
+    return { post: post, isLoading: isLoading, error: error, postComment: postComment };
 }
-exports["default"] = usePosts;
+exports["default"] = useFullPost;

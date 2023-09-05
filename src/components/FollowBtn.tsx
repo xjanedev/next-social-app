@@ -1,37 +1,38 @@
 "use client";
 
-import { ProfileUser } from "@/model/user";
-import React from "react";
-
-import ToggleButton from "@/components/ui/ToggleButton";
 import useMe from "@/hooks/me";
+import { ProfileUser } from "@/model/user";
+import ToggleButton from "./ui/ToggleButton";
 
 interface Props {
   user: ProfileUser;
 }
-
 export default function FollowButton({ user }: Props) {
   const { username } = user;
-  const { user: loggedInUser } = useMe();
+  const { user: loggedInUser, toggleFollow } = useMe();
 
   const showButton = loggedInUser && loggedInUser.username !== username;
   const following =
     loggedInUser &&
-    loggedInUser.following.find(
-      (item: { username: string }) => item.username === username
-    );
+    loggedInUser.following.find(item => item.username === username);
 
   const text = following ? "Unfollow" : "Follow";
+
+  const handleFollow = () => {
+    toggleFollow(user.id, !following);
+  };
 
   return (
     <>
       {showButton && (
         <ToggleButton
           text={text}
-          onClick={() => {}}
+          onClick={handleFollow}
           black={text === "Unfollow"}
         />
       )}
     </>
   );
 }
+
+//팔로우 버튼과 서버 연결 안됨 이슈

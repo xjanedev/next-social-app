@@ -37,7 +37,7 @@ export async function getUserByUsername(username: string) {
 
 export async function searchUsers(keyword?: string) {
   const query = keyword
-    ? `&& (name match "*${keyword}*") || (username match "*${keyword}*")`
+    ? `&& (name match "${keyword}") || (username match "${keyword}")`
     : "";
   return client
     .fetch(
@@ -79,7 +79,7 @@ export async function getUserForProfile(username: string) {
 
 export async function addBookmark(userId: string, postId: string) {
   return client
-    .patch(userId) //
+    .patch(userId)
     .setIfMissing({ bookmarks: [] })
     .append("bookmarks", [
       {
@@ -95,4 +95,28 @@ export async function removeBookmark(userId: string, postId: string) {
     .patch(userId)
     .unset([`bookmarks[_ref=="${postId}"]`])
     .commit();
+}
+
+export async function follow(myId: string, targetId: string) {
+  return client
+    .transaction()
+    .patch(myId, user =>
+      user
+        .setIfMissing({ following: [] })
+        .append("following", [{ _ref: targetId, _type: "reference" }])
+    )
+    .patch(targetId, user =>
+      user
+        .setIfMissing({ followers: [] })
+        .append("followers", [{ _ref: myId, _type: "reference" }])
+    )
+    .commit({ autoGenerateArrayKeys: true });
+}
+
+export async function unfollow(myId: string, targetId: string) {
+  return client
+    .transaction()
+    .patch(myId, user => user.unset([`following[_ref=="${targetId}"]`]))
+    .patch(targetId, user => user.unset([`followers[_ref=="${myId}"]`]))
+    .commit({ autoGenerateArrayKeys: true });
 }

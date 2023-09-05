@@ -16,11 +16,6 @@ import Profile from "./ui/Profile";
 
 const menu = [
   {
-    href: "/",
-    icon: <HomeIcon />,
-    clickedIcon: <HomeFillIcon />,
-  },
-  {
     href: "/search",
     icon: <SearchIcon />,
     clickedIcon: <SearchFillIcon />,
@@ -33,7 +28,7 @@ const menu = [
 ];
 
 export default function Navbar() {
-  const { data: session } = useSession(); // next-auth hook
+  const { data: session } = useSession();
   const path = usePathname();
   const user = session?.user;
 

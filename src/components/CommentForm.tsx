@@ -1,14 +1,40 @@
-import React from "react";
+import { FormEvent, useState } from "react";
 
-export default function CommentForm() {
+interface Props {
+  onPostComment: (comment: string) => void;
+}
+
+export default function CommentForm({ onPostComment }: Props) {
+  const [comment, setComment] = useState("");
+  const buttonDisabled = comment.length === 0;
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    onPostComment(comment);
+    setComment("");
+  };
+
   return (
-    <form className='flex items-center border-t border-neutral-300'>
+    <form
+      onSubmit={handleSubmit}
+      className='flex items-center px-6 border-t border-neutral-300'
+    >
       <input
-        className='w-full text-sm ml-6 border-none outline-none p-3'
+        className='w-full text-sm border-none outline-none p-3'
         type='text'
         placeholder='Add a comment...'
+        required
+        value={comment}
+        onChange={e => setComment(e.target.value)}
       />
-      <button className='font-bold text-gray-900 mr-8'>post</button>
+      <button
+        disabled={buttonDisabled}
+        className={`font-bold mr-2 ${
+          buttonDisabled ? "text-gray-300" : "text-gray-900"
+        }`}
+      >
+        post
+      </button>
     </form>
   );
 }

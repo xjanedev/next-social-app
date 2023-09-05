@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -46,54 +35,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 exports.__esModule = true;
-var react_1 = require("react");
-var swr_1 = require("swr");
-function updateBookmark(postId, bookmark) {
+exports.POST = void 0;
+var route_1 = require("@/app/api/auth/[...nextauth]/route");
+var posts_1 = require("@/service/posts");
+var next_auth_1 = require("next-auth");
+var server_1 = require("next/server");
+function POST(req) {
     return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2 /*return*/, fetch("/api/bookmarks", {
-                    method: "PUT",
-                    body: JSON.stringify({ id: postId, bookmark: bookmark })
-                }).then(function (res) { return res.json(); })];
+        var session, user, _a, id, comment;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, next_auth_1.getServerSession(route_1.authOptions)];
+                case 1:
+                    session = _b.sent();
+                    user = session === null || session === void 0 ? void 0 : session.user;
+                    if (!user) {
+                        return [2 /*return*/, new Response("Authentication Error", { status: 401 })];
+                    }
+                    return [4 /*yield*/, req.json()];
+                case 2:
+                    _a = _b.sent(), id = _a.id, comment = _a.comment;
+                    if (!id || comment === undefined) {
+                        return [2 /*return*/, new Response("Bad Request", { status: 400 })];
+                    }
+                    return [2 /*return*/, posts_1.addComment(id, user.id, comment) //
+                            .then(function (res) { return server_1.NextResponse.json(res); })["catch"](function (error) { return new Response(JSON.stringify(error), { status: 500 }); })];
+            }
         });
     });
 }
-function updateFollow(targetId, follow) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            return [2 /*return*/, fetch("/api/follow", {
-                    method: "PUT",
-                    body: JSON.stringify({ id: targetId, follow: follow })
-                }).then(function (res) { return res.json(); })];
-        });
-    });
-}
-function useMe() {
-    var _a = swr_1["default"]("/api/me"), user = _a.data, isLoading = _a.isLoading, error = _a.error, mutate = _a.mutate;
-    var setBookmark = react_1.useCallback(function (postId, bookmark) {
-        if (!user)
-            return;
-        var bookmarks = user.bookmarks;
-        var newUser = __assign(__assign({}, user), { bookmarks: bookmark
-                ? __spreadArrays(bookmarks, [postId]) : bookmarks.filter(function (b) { return b !== postId; }) });
-        return mutate(updateBookmark(postId, bookmark), {
-            optimisticData: newUser,
-            populateCache: false,
-            revalidate: false,
-            rollbackOnError: true
-        });
-    }, [user, mutate]);
-    var toggleFollow = react_1.useCallback(function (targetId, follow) {
-        return mutate(updateFollow(targetId, follow), { populateCache: false });
-    }, [mutate]);
-    return { user: user, isLoading: isLoading, error: error, setBookmark: setBookmark, toggleFollow: toggleFollow };
-}
-exports["default"] = useMe;
+exports.POST = POST;

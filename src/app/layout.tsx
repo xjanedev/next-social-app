@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
 import AuthContext from "@/context/AuthContext";
 import SWRConfigContext from "@/context/SWRConfigContext";
+import Footer from "@/components/Footer";
 
 const NotoSans = Noto_Sans({
   subsets: ["latin"],

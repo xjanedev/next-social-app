@@ -2,12 +2,12 @@
 import { useState } from "react";
 import Image from "next/image";
 import { SimplePost } from "@/model/post";
-import CommentForm from "./CommentForm";
 import ActionBar from "./ActionBar";
 import ModalPortal from "./ui/ModalPortal";
 import PostModal from "./PostModal";
 import PostDetail from "./PostDetail";
 import PostUserProfile from "./ui/PostUserProfile";
+import usePosts from "@/hooks/posts";
 
 interface Props {
   post: SimplePost;
@@ -15,8 +15,12 @@ interface Props {
 }
 
 export default function PostListCard({ post, priority = false }: Props) {
-  const { userImage, username, image, createdAt, likes, text } = post;
+  const { userImage, username, image, text, comments } = post;
   const [openModal, setOpenModal] = useState(false);
+  const { postComment } = usePosts();
+  const handlePostComment = (comment: Comment) => {
+    postComment(post, comment);
+  };
 
   return (
     <article className='rounded-3xl border border-gray-20'>
@@ -30,8 +34,18 @@ export default function PostListCard({ post, priority = false }: Props) {
         priority={priority}
         onClick={() => setOpenModal(true)}
       />
-      <ActionBar post={post} />
-      <CommentForm />
+      <ActionBar post={post} onComment={handlePostComment}>
+        <p>
+          <sapn className='font-bold mr-1'>{username}</sapn>
+          {text}
+        </p>
+        {comments > 1 && (
+          <button
+            className='font-bold my-2 text-gray-900'
+            onClick={() => setOpenModal(true)}
+          >{`View all ${comments} comments`}</button>
+        )}
+      </ActionBar>
       {openModal && (
         <ModalPortal>
           <PostModal onClose={() => setOpenModal(false)}>

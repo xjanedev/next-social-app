@@ -47,7 +47,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.removeBookmark = exports.addBookmark = exports.getUserForProfile = exports.searchUsers = exports.getUserByUsername = exports.addUser = void 0;
+exports.unfollow = exports.follow = exports.removeBookmark = exports.addBookmark = exports.getUserForProfile = exports.searchUsers = exports.getUserByUsername = exports.addUser = void 0;
 var sanity_1 = require("./sanity");
 function addUser(_a) {
     var id = _a.id, username = _a.username, email = _a.email, name = _a.name, image = _a.image;
@@ -81,7 +81,7 @@ function searchUsers(keyword) {
         var query;
         return __generator(this, function (_a) {
             query = keyword
-                ? "&& (name match \"*" + keyword + "*\") || (username match \"*" + keyword + "*\")"
+                ? "&& (name match \"" + keyword + "\") || (username match \"" + keyword + "\")"
                 : "";
             return [2 /*return*/, sanity_1.client
                     .fetch("*[_type ==\"user\" " + query + "]{\n      ...,\n      \"following\": count(following),\n      \"followers\": count(followers),\n    }\n    ")
@@ -112,7 +112,7 @@ function addBookmark(userId, postId) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             return [2 /*return*/, sanity_1.client
-                    .patch(userId) //
+                    .patch(userId)
                     .setIfMissing({ bookmarks: [] })
                     .append("bookmarks", [
                     {
@@ -136,3 +136,35 @@ function removeBookmark(userId, postId) {
     });
 }
 exports.removeBookmark = removeBookmark;
+function follow(myId, targetId) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, sanity_1.client
+                    .transaction()
+                    .patch(myId, function (user) {
+                    return user
+                        .setIfMissing({ following: [] })
+                        .append("following", [{ _ref: targetId, _type: "reference" }]);
+                })
+                    .patch(targetId, function (user) {
+                    return user
+                        .setIfMissing({ followers: [] })
+                        .append("followers", [{ _ref: myId, _type: "reference" }]);
+                })
+                    .commit({ autoGenerateArrayKeys: true })];
+        });
+    });
+}
+exports.follow = follow;
+function unfollow(myId, targetId) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, sanity_1.client
+                    .transaction()
+                    .patch(myId, function (user) { return user.unset(["following[_ref==\"" + targetId + "\"]"]); })
+                    .patch(targetId, function (user) { return user.unset(["followers[_ref==\"" + myId + "\"]"]); })
+                    .commit({ autoGenerateArrayKeys: true })];
+        });
+    });
+}
+exports.unfollow = unfollow;

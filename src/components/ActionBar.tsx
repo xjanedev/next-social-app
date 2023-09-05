@@ -7,13 +7,16 @@ import { SimplePost } from "@/model/post";
 import ToggleBtn from "./ui/ToggleBtn";
 import usePosts from "@/hooks/posts";
 import useMe from "@/hooks/me";
+import CommentForm from "./CommentForm";
 
 interface Props {
   post: SimplePost;
+  children?: React.ReactNode;
+  onComment: (commnet: Comment) => void;
 }
 
-export default function ActionBar({ post }: Props) {
-  const { id, likes, username, text, createdAt } = post;
+export default function ActionBar({ post, children, onComment }: Props) {
+  const { id, likes, username, createdAt } = post;
   const { user, setBookmark } = useMe();
   const { setLike } = usePosts();
 
@@ -28,9 +31,12 @@ export default function ActionBar({ post }: Props) {
     user && setBookmark(id, bookmark);
   };
 
+  const handleComment = (comment: string) => {
+    user && onComment({ comment, username: user.username, image: user.image });
+  };
   return (
     <>
-      <div className='flex justify-between my-2 px-4'>
+      <div className='flex justify-between px-3'>
         <ToggleBtn
           toggled={liked}
           onToggle={handleLike}
@@ -48,16 +54,12 @@ export default function ActionBar({ post }: Props) {
         <p className='text-xs font-bold mb-3'>{`${likes?.length ?? 0} ${
           likes?.length > 1 ? "likes" : "like"
         }`}</p>
-        {text && (
-          <p>
-            <span className='font-bold mr-3'>{username}</span>
-            {text}
-          </p>
-        )}
+        {children}
         <p className='text-xs text-neutral-500 uppercase my-2'>
           {parseDate(createdAt)}
         </p>
       </div>
+      <CommentForm onPostComment={handleComment} />
     </>
   );
 }

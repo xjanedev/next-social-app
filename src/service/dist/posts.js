@@ -47,7 +47,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.dislikePost = exports.likePost = exports.getSavedPostsOf = exports.getLikedPostsOf = exports.getPostsOf = exports.getPost = exports.getFollowingPostsOf = void 0;
+exports.addComment = exports.dislikePost = exports.likePost = exports.getSavedPostsOf = exports.getLikedPostsOf = exports.getPostsOf = exports.getPost = exports.getFollowingPostsOf = void 0;
 var sanity_1 = require("./sanity");
 var simplePostProjection = "\n    ...,\n    \"username\": author->username,\n    \"userImage\": author->image,\n    \"image\": photo,\n    \"likes\": likes[]->username,\n    \"text\": comments[0].comment,\n    \"comments\": count(comments),\n    \"id\":_id,\n    \"createdAt\":_createdAt\n";
 function getFollowingPostsOf(username) {
@@ -134,3 +134,23 @@ function dislikePost(postId, userId) {
     });
 }
 exports.dislikePost = dislikePost;
+function addComment(postId, userId, comment) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, sanity_1.client
+                    .patch(postId)
+                    .setIfMissing({ comment: [] })
+                    .append("comments", [
+                    {
+                        comment: comment,
+                        author: {
+                            _ref: userId,
+                            _type: "reference"
+                        }
+                    },
+                ])
+                    .commit({ autoGenerateArrayKeys: true })];
+        });
+    });
+}
+exports.addComment = addComment;
