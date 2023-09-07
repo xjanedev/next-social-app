@@ -1,4 +1,4 @@
-import { getPostsOf, getSavedPostsOf, getLikedPostsOf } from "@/service/posts";
+import { getLikedPostsOf, getPostsOf, getSavedPostsOf } from "@/service/posts";
 import { NextRequest, NextResponse } from "next/server";
 
 interface Context {
@@ -6,23 +6,16 @@ interface Context {
     slug: string[];
   };
 }
-
 export async function GET(_: NextRequest, context: Context) {
   const { slug } = context.params;
 
   if (!slug || !Array.isArray(slug) || slug.length < 2) {
-    const response = new NextResponse("Bad Request", {
-      status: 400,
-      headers: {
-        "Content-Type": "text/plain",
-      },
-    });
-    return response;
+    return new NextResponse("Bad Request", { status: 400 });
   }
 
   const [username, query] = slug;
-  let request = getPostsOf;
 
+  let request = getPostsOf;
   if (query === "saved") {
     request = getSavedPostsOf;
   } else if (query === "liked") {

@@ -14,14 +14,13 @@ interface Props {
   children?: React.ReactNode;
   onComment: (commnet: Comment) => void;
 }
-
 export default function ActionBar({ post, children, onComment }: Props) {
-  const { id, likes, username, createdAt } = post;
+  const { id, likes, createdAt } = post;
   const { user, setBookmark } = useMe();
   const { setLike } = usePosts();
 
   const liked = user ? likes.includes(user.username) : false;
-  const bookmarked = user && user.bookmarks && user.bookmarks.includes(id);
+  const bookmarked = user?.bookmarks.includes(id) ?? false;
 
   const handleLike = (like: boolean) => {
     user && setLike(post, user.username, like);
@@ -34,6 +33,7 @@ export default function ActionBar({ post, children, onComment }: Props) {
   const handleComment = (comment: string) => {
     user && onComment({ comment, username: user.username, image: user.image });
   };
+
   return (
     <>
       <div className='flex justify-between px-3'>

@@ -56,6 +56,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 exports.__esModule = true;
 var react_1 = require("react");
 var swr_1 = require("swr");
+var CacheKeyContext_1 = require("@/context/CacheKeyContext");
 function updateLike(id, like) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -77,7 +78,8 @@ function addComment(id, comment) {
     });
 }
 function usePosts() {
-    var _a = swr_1["default"]("/api/post"), posts = _a.data, isLoading = _a.isLoading, error = _a.error, mutate = _a.mutate;
+    var cacheKeys = CacheKeyContext_1.useCaheKeys();
+    var _a = swr_1["default"](cacheKeys.postsKey), posts = _a.data, isLoading = _a.isLoading, error = _a.error, mutate = _a.mutate;
     var setLike = react_1.useCallback(function (post, username, like) {
         var newPost = __assign(__assign({}, post), { likes: like
                 ? __spreadArrays(post.likes, [username]) : post.likes.filter(function (item) { return item !== username; }) });

@@ -1,7 +1,6 @@
 import { FullPost, SimplePost } from "@/model/post";
 import Image from "next/image";
 import ActionBar from "./ActionBar";
-import CommentForm from "./CommentForm";
 import PostUserProfile from "./ui/PostUserProfile";
 import useFullPost from "@/hooks/post";
 interface Props {

@@ -13,7 +13,7 @@ interface Props {
 export default function PostGridCard({ post, priority = false }: Props) {
   const [openModal, setOpenModal] = useState(false);
   const { image, username } = post;
-  const { data: sesesion } = useSession(); // usesession hook 사용한다.
+  const { data: sesesion } = useSession();
   const handleOpenPost = () => {
     if (!sesesion?.user) {
       return signIn();

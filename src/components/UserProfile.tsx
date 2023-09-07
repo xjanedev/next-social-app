@@ -16,8 +16,9 @@ export default function UserProfile({ user }: Props) {
   ];
 
   return (
-    <section className='w-full flex justify-between p-8 border-b border-neutral-200'>
-      <div className='flex flex-col'>
+    <section className='w-full flex flex-col md:flex-row items-center justify-between p-8 border-b border-neutral-200'>
+      <Profile image={image} size={"big"} />
+      <div className='md:ml-10 basis-1/3'>
         <h1 className='font-bold text-md my-4'>{username}</h1>
         <ul className='my-2 flex gap-4'>
           {info.map(({ title, data }, index) => (
@@ -34,7 +35,6 @@ export default function UserProfile({ user }: Props) {
           <FollowBtn user={user} />
         </div>
       </div>
-      <Profile image={image} size={"big"} />
     </section>
   );
 }

@@ -36,7 +36,7 @@ export default function PostListCard({ post, priority = false }: Props) {
       />
       <ActionBar post={post} onComment={handlePostComment}>
         <p>
-          <sapn className='font-bold mr-1'>{username}</sapn>
+          <span className='font-bold mr-1'>{username}</span>
           {text}
         </p>
         {comments > 1 && (
