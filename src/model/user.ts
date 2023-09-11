@@ -1,24 +1,24 @@
-export interface User {
+export type User = {
   id: string;
   name: string;
   username: string;
   email: string;
   image?: string;
-}
+};
 
-export interface SimpleUser extends Pick<User, "username" | "image"> {}
+export type SimpleUser = Pick<User, "username" | "image">;
 
-export interface DetailUser extends User {
+export type DetailUser = User & {
   following: SimpleUser[];
   followers: SimpleUser[];
   bookmarks: string[];
-}
+};
 
-export interface SearchUser extends User {
+export type SearchUser = User & {
   following: number;
   followers: number;
-}
+};
 
-export interface ProfileUser extends SearchUser {
+export type ProfileUser = SearchUser & {
   posts: number;
-}
+};

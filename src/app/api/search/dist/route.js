@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -46,40 +35,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 exports.__esModule = true;
-var react_1 = require("react");
-var swr_1 = require("swr");
-function addComment(id, comment) {
+exports.GET = exports.dynamic = void 0;
+var user_1 = require("@/service/user");
+var server_1 = require("next/server");
+exports.dynamic = "force-dynamic";
+function GET() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, fetch("/api/comments", {
-                    method: "POST",
-                    body: JSON.stringify({ id: id, comment: comment })
-                }).then(function (res) { return res.json(); })];
+            return [2 /*return*/, user_1.searchUsers().then(function (data) { return server_1.NextResponse.json(data); })];
         });
     });
 }
-function useFullPost(postId) {
-    var _a = swr_1["default"]("/api/post/" + postId), post = _a.data, isLoading = _a.isLoading, error = _a.error, mutate = _a.mutate;
-    var globalMutate = swr_1.useSWRConfig().mutate;
-    var postComment = react_1.useCallback(function (comment) {
-        if (!post)
-            return;
-        var newPost = __assign(__assign({}, post), { comments: __spreadArrays(post.comments, [comment]) });
-        return mutate(addComment(post.id, comment.comment), {
-            optimisticData: newPost,
-            populateCache: false,
-            revalidate: false,
-            rollbackOnError: true
-        }).then(function () { return globalMutate("/api/post"); });
-    }, [post, mutate, globalMutate]);
-    return { post: post, isLoading: isLoading, error: error, postComment: postComment };
-}
-exports["default"] = useFullPost;
+exports.GET = GET;

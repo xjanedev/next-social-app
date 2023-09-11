@@ -36,6 +36,7 @@ export const authOptions: AuthOptions = {
       return session;
     },
     async jwt({ token, user }) {
+      // jwt token 함수
       if (user) {
         token.id = user.id;
       }

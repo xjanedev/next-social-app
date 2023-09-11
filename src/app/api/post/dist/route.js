@@ -1,4 +1,3 @@
-"use client";
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -37,43 +36,55 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var me_1 = require("@/hooks/me");
-var navigation_1 = require("next/navigation");
-var react_1 = require("react");
-var react_spinners_1 = require("react-spinners");
-var ToggleButton_1 = require("./ui/ToggleButton");
-function FollowButton(_a) {
-    var _this = this;
-    var user = _a.user;
-    var username = user.username;
-    var _b = me_1["default"](), loggedInUser = _b.user, toggleFollow = _b.toggleFollow;
-    var router = navigation_1.useRouter();
-    var _c = react_1.useTransition(), isPending = _c[0], startTransition = _c[1];
-    var _d = react_1.useState(false), isFetching = _d[0], setIsFetching = _d[1];
-    var isUpdating = isPending || isFetching;
-    var showButton = loggedInUser && loggedInUser.username !== username;
-    var following = loggedInUser &&
-        loggedInUser.following.find(function (item) { return item.username === username; });
-    var text = following ? "Unfollow" : "Follow";
-    var handleFollow = function () { return __awaiter(_this, void 0, void 0, function () {
+exports.POST = exports.GET = void 0;
+var route_1 = require("../auth/[...nextauth]/route");
+var posts_1 = require("@/service/posts");
+var next_auth_1 = require("next-auth");
+var server_1 = require("next/server");
+function GET() {
+    return __awaiter(this, void 0, void 0, function () {
+        var session, user;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    setIsFetching(true);
-                    return [4 /*yield*/, toggleFollow(user.id, !following)];
+                case 0: return [4 /*yield*/, next_auth_1.getServerSession(route_1.authOptions)];
                 case 1:
-                    _a.sent();
-                    setIsFetching(false);
-                    startTransition(function () {
-                        router.refresh();
-                    });
-                    return [2 /*return*/];
+                    session = _a.sent();
+                    user = session === null || session === void 0 ? void 0 : session.user;
+                    if (!user) {
+                        return [2 /*return*/, new Response("Authentication Error", { status: 401 })];
+                    }
+                    return [2 /*return*/, posts_1.getFollowingPostsOf(user.username) //
+                            .then(function (data) { return server_1.NextResponse.json(data); })];
             }
         });
-    }); };
-    return (React.createElement(React.Fragment, null, showButton && (React.createElement("div", { className: 'relative' },
-        isUpdating && (React.createElement("div", { className: 'absolute z-20 inset-0 flex justify-center items-center' },
-            React.createElement(react_spinners_1.PulseLoader, { size: 6 }))),
-        React.createElement(ToggleButton_1["default"], { disabled: isUpdating, text: text, onClick: handleFollow, red: text === "Unfollow" })))));
+    });
 }
-exports["default"] = FollowButton;
+exports.GET = GET;
+function POST(req) {
+    var _a;
+    return __awaiter(this, void 0, void 0, function () {
+        var session, user, form, text, file;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, next_auth_1.getServerSession(route_1.authOptions)];
+                case 1:
+                    session = _b.sent();
+                    user = session === null || session === void 0 ? void 0 : session.user;
+                    if (!user) {
+                        return [2 /*return*/, new Response("Authentication Error", { status: 401 })];
+                    }
+                    return [4 /*yield*/, req.formData()];
+                case 2:
+                    form = _b.sent();
+                    text = (_a = form.get("text")) === null || _a === void 0 ? void 0 : _a.toString();
+                    file = form.get("file");
+                    if (!text || !file) {
+                        return [2 /*return*/, new Response("Bad Request", { status: 400 })];
+                    }
+                    return [2 /*return*/, posts_1.createPost(user.id, text, file) //
+                            .then(function (data) { return server_1.NextResponse.json(data); })];
+            }
+        });
+    });
+}
+exports.POST = POST;

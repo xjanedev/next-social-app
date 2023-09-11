@@ -1,4 +1,5 @@
 "use client";
+
 import useMe from "@/hooks/me";
 import { ProfileUser } from "@/model/user";
 import { useRouter } from "next/navigation";
@@ -9,19 +10,18 @@ import ToggleButton from "./ui/ToggleButton";
 interface Props {
   user: ProfileUser;
 }
-export default function FollowButton({ user }: Props) {
+export default function FollowBtn({ user }: Props) {
   const { username } = user;
   const { user: loggedInUser, toggleFollow } = useMe();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [isFetching, setIsFetching] = useState(false);
   const isUpdating = isPending || isFetching;
+
   const showButton = loggedInUser && loggedInUser.username !== username;
   const following =
     loggedInUser &&
-    loggedInUser.following.find(
-      (item: { username: string }) => item.username === username
-    );
+    loggedInUser.following.find(item => item.username === username);
 
   const text = following ? "Unfollow" : "Follow";
 

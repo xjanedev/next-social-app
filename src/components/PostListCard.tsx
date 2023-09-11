@@ -26,7 +26,7 @@ export default function PostListCard({ post, priority = false }: Props) {
     <article className='rounded-3xl border border-gray-20'>
       <PostUserProfile image={userImage} username={username} />
       <Image
-        className='w-[580px] h-[500px] rounded-3xl object-cover aspect-square p-3'
+        className='w-[580px] h-[500px] object-cover aspect-square pb-2'
         src={image}
         alt={`photo by ${username}`}
         width={500}

@@ -19,7 +19,7 @@ function PostListCard(_a) {
     };
     return (React.createElement("article", { className: 'rounded-3xl border border-gray-20' },
         React.createElement(PostUserProfile_1["default"], { image: userImage, username: username }),
-        React.createElement(image_1["default"], { className: 'w-[580px] h-[500px] rounded-3xl object-cover aspect-square p-3', src: image, alt: "photo by " + username, width: 500, height: 500, priority: priority, onClick: function () { return setOpenModal(true); } }),
+        React.createElement(image_1["default"], { className: 'w-[580px] h-[500px] object-cover aspect-square pb-2', src: image, alt: "photo by " + username, width: 500, height: 500, priority: priority, onClick: function () { return setOpenModal(true); } }),
         React.createElement(ActionBar_1["default"], { post: post, onComment: handlePostComment },
             React.createElement("p", null,
                 React.createElement("span", { className: 'font-bold mr-1' }, username),

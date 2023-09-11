@@ -20,7 +20,7 @@ export default function CommentForm({ onPostComment }: Props) {
       className='flex items-center px-6 border-t border-neutral-300'
     >
       <input
-        className='w-full text-sm border-none outline-none p-3'
+        className='w-full text-xs border-none outline-none p-4'
         type='text'
         placeholder='Add a comment...'
         required
@@ -29,7 +29,7 @@ export default function CommentForm({ onPostComment }: Props) {
       />
       <button
         disabled={buttonDisabled}
-        className={`font-bold mr-2 ${
+        className={`font-bold mr-2 text-sm ${
           buttonDisabled ? "text-gray-300" : "text-gray-900"
         }`}
       >

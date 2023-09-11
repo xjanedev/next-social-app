@@ -16,22 +16,20 @@ export default function UserProfile({ user }: Props) {
   ];
 
   return (
-    <section className='w-full flex flex-col md:flex-row items-center justify-between p-8 border-b border-neutral-200'>
+    <section className='w-full flex flex-col md:flex-row md:items-center justify-between p-8 border-b border-neutral-200'>
       <Profile image={image} size={"big"} />
       <div className='md:ml-10 basis-1/3'>
         <h1 className='font-bold text-md my-4'>{username}</h1>
         <ul className='my-2 flex gap-4'>
           {info.map(({ title, data }, index) => (
-            <li key={index}>
-              <span className='px-2 mr-1 text-sm bg-gray-200 rounded-full'>
-                {data}
-              </span>
+            <li className='text-sm' key={index}>
+              <span className='px-2 mr-1 bg-gray-100 rounded-full'>{data}</span>
               {title}
             </li>
           ))}
         </ul>
         <div className='flex justify-between'>
-          <p className='text-md'>{name}</p>
+          <p className='text-sm py-2'>{name}</p>
           <FollowBtn user={user} />
         </div>
       </div>

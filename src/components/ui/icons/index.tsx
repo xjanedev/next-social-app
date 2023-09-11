@@ -8,5 +8,6 @@ export { default as BsBookmark } from "./BookmarkIcon";
 export { default as CgClose } from "./ClosedIcon";
 export { default as AiOutlineHeart } from "./HeartIcon";
 export { default as MdGridOn } from "./PostIcon";
+export { default as FaRegTrashCan } from "./TrashIcon";
 
 // 모듈 내보내기

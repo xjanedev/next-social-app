@@ -32,6 +32,6 @@ export async function generateMetadata({
   const user = await getUser(username);
   return {
     title: `${user?.name} (@${user?.username})`,
-    description: `${user?.name}'s posts`,
+    description: `${user?.name}'s all posts`,
   };
 }

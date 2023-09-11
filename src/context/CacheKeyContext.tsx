@@ -1,11 +1,11 @@
 import { createContext, useContext } from "react";
 
-interface CacheKeyValue {
+interface CacheKeysValue {
   postsKey: string;
 }
 
-export const CacheKeysContext = createContext<CacheKeyValue>({
+export const CacheKeysContext = createContext<CacheKeysValue>({
   postsKey: "/api/post",
 });
 
-export const useCaheKeys = () => useContext(CacheKeysContext);
+export const useCacheKeys = () => useContext(CacheKeysContext);

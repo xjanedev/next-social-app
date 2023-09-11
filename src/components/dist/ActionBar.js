@@ -30,7 +30,7 @@ function ActionBar(_a) {
         React.createElement("div", { className: 'flex justify-between px-3' },
             React.createElement(ToggleBtn_1["default"], { toggled: liked, onToggle: handleLike, onIcon: React.createElement(HeartFillIcon_1["default"], null), offIcon: React.createElement(HeartIcon_1["default"], null) }),
             React.createElement(ToggleBtn_1["default"], { toggled: bookmarked, onToggle: handleBookmark, onIcon: React.createElement(BookmarkFillIcon_1["default"], null), offIcon: React.createElement(BookmarkIcon_1["default"], null) })),
-        React.createElement("div", { className: 'px-4 py-1' },
+        React.createElement("div", { className: 'px-4 py-1 text-sm' },
             React.createElement("p", { className: 'text-xs font-bold mb-3' }, ((_c = likes === null || likes === void 0 ? void 0 : likes.length) !== null && _c !== void 0 ? _c : 0) + " " + ((likes === null || likes === void 0 ? void 0 : likes.length) > 1 ? "likes" : "like")),
             children,
             React.createElement("p", { className: 'text-xs text-neutral-500 uppercase my-2' }, date_1.parseDate(createdAt))),

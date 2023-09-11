@@ -12,7 +12,7 @@ function PostDetail(_a) {
     return (React.createElement("section", { className: 'flex flex-col w-full h-full' },
         React.createElement("div", { className: 'relative basis-5/6' },
             React.createElement(image_1["default"], { className: 'object-cover rounded-tl-3xl rounded-tr-3xl', src: image, alt: "photo by " + username, priority: true, fill: true, sizes: '650px' })),
-        React.createElement("div", { className: 'w-full flex flex-col' },
+        React.createElement("div", { className: 'w-full flex flex-col text-sm' },
             React.createElement(PostUserProfile_1["default"], { image: userImage, username: username }),
             React.createElement("ul", { className: 'border-t border-gray-200 h-full overflow-y-auto p-4 mb-1' }, comments &&
                 comments.map(function (_a, index) {

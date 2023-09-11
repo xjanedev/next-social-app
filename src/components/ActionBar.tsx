@@ -14,6 +14,7 @@ interface Props {
   children?: React.ReactNode;
   onComment: (commnet: Comment) => void;
 }
+
 export default function ActionBar({ post, children, onComment }: Props) {
   const { id, likes, createdAt } = post;
   const { user, setBookmark } = useMe();
@@ -50,7 +51,7 @@ export default function ActionBar({ post, children, onComment }: Props) {
           offIcon={<BookmarkIcon />}
         />
       </div>
-      <div className='px-4 py-1'>
+      <div className='px-4 py-1 text-sm'>
         <p className='text-xs font-bold mb-3'>{`${likes?.length ?? 0} ${
           likes?.length > 1 ? "likes" : "like"
         }`}</p>

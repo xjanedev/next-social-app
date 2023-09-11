@@ -18,7 +18,7 @@ function UserPost(_a) {
     return (React.createElement("section", null,
         React.createElement("ul", { className: 'flex justify-center uppercase' }, tabs.map(function (_a) {
             var type = _a.type, icon = _a.icon;
-            return (React.createElement("li", { className: "mx-10 p-3 cursor-pointer border-x-black " + (type === query && "font-bold border-t"), key: type, onClick: function () { return setQuery(type); } },
+            return (React.createElement("li", { className: "mx-10 p-3 cursor-pointer border-black " + (type === query && "font-bold border-t"), key: type, onClick: function () { return setQuery(type); } },
                 React.createElement("button", { className: 'scale-150 md:scale-100 mr-3' }, icon),
                 React.createElement("span", { className: 'hidden md:inline text-sm' }, type)));
         })),

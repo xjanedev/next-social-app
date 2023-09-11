@@ -4,7 +4,7 @@ interface Props {
   red?: boolean;
   disabled?: boolean;
 }
-export default function Button({
+export default function ToggleButton({
   text,
   onClick,
   red,
@@ -12,8 +12,8 @@ export default function Button({
 }: Props) {
   return (
     <button
-      className={`border-none rounded-full py-2 px-4 text-white text-sm leading-3 ${
-        red ? "bg-black" : "bg-gray-300"
+      className={`border-none rounded-full py-2 px-4 text-white text-sm font-bold leading-4 ${
+        red ? "bg-gray-900" : "bg-gray-300"
       } ${disabled && "opacity-80"}`}
       onClick={() => onClick()}
       disabled={disabled}

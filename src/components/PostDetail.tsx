@@ -24,7 +24,7 @@ export default function PostDetail({ post }: Props) {
           sizes='650px'
         />
       </div>
-      <div className='w-full flex flex-col'>
+      <div className='w-full flex flex-col text-sm'>
         <PostUserProfile image={userImage} username={username} />
         <ul className='border-t border-gray-200 h-full overflow-y-auto p-4 mb-1'>
           {comments &&
