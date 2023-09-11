@@ -36,31 +36,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.PUT = void 0;
-var posts_1 = require("@/service/posts");
+exports.GET = void 0;
+var user_1 = require("@/service/user");
 var session_1 = require("@/util/session");
 var server_1 = require("next/server");
-function PUT(req) {
+function GET() {
     return __awaiter(this, void 0, void 0, function () {
         var _this = this;
         return __generator(this, function (_a) {
             return [2 /*return*/, session_1.withSessionUser(function (user) { return __awaiter(_this, void 0, void 0, function () {
-                    var _a, id, like, request;
-                    return __generator(this, function (_b) {
-                        switch (_b.label) {
-                            case 0: return [4 /*yield*/, req.json()];
-                            case 1:
-                                _a = _b.sent(), id = _a.id, like = _a.like;
-                                if (!id || like === null) {
-                                    return [2 /*return*/, new Response("Bad Request", { status: 400 })];
-                                }
-                                request = like ? posts_1.likePost : posts_1.dislikePost;
-                                return [2 /*return*/, request(id, user.id) //
-                                        .then(function (res) { return server_1.NextResponse.json(res); })["catch"](function (error) { return new Response(JSON.stringify(error), { status: 500 }); })];
-                        }
+                    return __generator(this, function (_a) {
+                        return [2 /*return*/, user_1.getUserByUsername(user.username) //
+                                .then(function (data) { return server_1.NextResponse.json(data); })];
                     });
                 }); })];
         });
     });
 }
-exports.PUT = PUT;
+exports.GET = GET;

@@ -37,53 +37,45 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.POST = exports.GET = void 0;
-var route_1 = require("../auth/[...nextauth]/route");
 var posts_1 = require("@/service/posts");
-var next_auth_1 = require("next-auth");
+var session_1 = require("@/util/session");
 var server_1 = require("next/server");
 function GET() {
     return __awaiter(this, void 0, void 0, function () {
-        var session, user;
+        var _this = this;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, next_auth_1.getServerSession(route_1.authOptions)];
-                case 1:
-                    session = _a.sent();
-                    user = session === null || session === void 0 ? void 0 : session.user;
-                    if (!user) {
-                        return [2 /*return*/, new Response("Authentication Error", { status: 401 })];
-                    }
-                    return [2 /*return*/, posts_1.getFollowingPostsOf(user.username) //
-                            .then(function (data) { return server_1.NextResponse.json(data); })];
-            }
+            return [2 /*return*/, session_1.withSessionUser(function (user) { return __awaiter(_this, void 0, void 0, function () {
+                    return __generator(this, function (_a) {
+                        return [2 /*return*/, posts_1.getFollowingPostsOf(user.username) //
+                                .then(function (data) { return server_1.NextResponse.json(data); })];
+                    });
+                }); })];
         });
     });
 }
 exports.GET = GET;
 function POST(req) {
-    var _a;
     return __awaiter(this, void 0, void 0, function () {
-        var session, user, form, text, file;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0: return [4 /*yield*/, next_auth_1.getServerSession(route_1.authOptions)];
-                case 1:
-                    session = _b.sent();
-                    user = session === null || session === void 0 ? void 0 : session.user;
-                    if (!user) {
-                        return [2 /*return*/, new Response("Authentication Error", { status: 401 })];
-                    }
-                    return [4 /*yield*/, req.formData()];
-                case 2:
-                    form = _b.sent();
-                    text = (_a = form.get("text")) === null || _a === void 0 ? void 0 : _a.toString();
-                    file = form.get("file");
-                    if (!text || !file) {
-                        return [2 /*return*/, new Response("Bad Request", { status: 400 })];
-                    }
-                    return [2 /*return*/, posts_1.createPost(user.id, text, file) //
-                            .then(function (data) { return server_1.NextResponse.json(data); })];
-            }
+        var _this = this;
+        return __generator(this, function (_a) {
+            return [2 /*return*/, session_1.withSessionUser(function (user) { return __awaiter(_this, void 0, void 0, function () {
+                    var form, text, file;
+                    var _a;
+                    return __generator(this, function (_b) {
+                        switch (_b.label) {
+                            case 0: return [4 /*yield*/, req.formData()];
+                            case 1:
+                                form = _b.sent();
+                                text = (_a = form.get("text")) === null || _a === void 0 ? void 0 : _a.toString();
+                                file = form.get("file");
+                                if (!text || !file) {
+                                    return [2 /*return*/, new Response("Bad Request", { status: 400 })];
+                                }
+                                return [2 /*return*/, posts_1.createPost(user.id, text, file) //
+                                        .then(function (data) { return server_1.NextResponse.json(data); })];
+                        }
+                    });
+                }); })];
         });
     });
 }

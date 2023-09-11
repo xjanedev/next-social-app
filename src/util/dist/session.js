@@ -36,31 +36,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.PUT = void 0;
-var posts_1 = require("@/service/posts");
-var session_1 = require("@/util/session");
-var server_1 = require("next/server");
-function PUT(req) {
-    return __awaiter(this, void 0, void 0, function () {
-        var _this = this;
+exports.withSessionUser = void 0;
+var route_1 = require("@/app/api/auth/[...nextauth]/route");
+var next_auth_1 = require("next-auth");
+function withSessionUser(handler) {
+    return __awaiter(this, void 0, Promise, function () {
+        var session, user;
         return __generator(this, function (_a) {
-            return [2 /*return*/, session_1.withSessionUser(function (user) { return __awaiter(_this, void 0, void 0, function () {
-                    var _a, id, like, request;
-                    return __generator(this, function (_b) {
-                        switch (_b.label) {
-                            case 0: return [4 /*yield*/, req.json()];
-                            case 1:
-                                _a = _b.sent(), id = _a.id, like = _a.like;
-                                if (!id || like === null) {
-                                    return [2 /*return*/, new Response("Bad Request", { status: 400 })];
-                                }
-                                request = like ? posts_1.likePost : posts_1.dislikePost;
-                                return [2 /*return*/, request(id, user.id) //
-                                        .then(function (res) { return server_1.NextResponse.json(res); })["catch"](function (error) { return new Response(JSON.stringify(error), { status: 500 }); })];
-                        }
-                    });
-                }); })];
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, next_auth_1.getServerSession(route_1.authOptions)];
+                case 1:
+                    session = _a.sent();
+                    user = session === null || session === void 0 ? void 0 : session.user;
+                    if (!user) {
+                        return [2 /*return*/, new Response("Authentication Error", { status: 401 })];
+                    }
+                    return [2 /*return*/, handler(user)];
+            }
         });
     });
 }
-exports.PUT = PUT;
+exports.withSessionUser = withSessionUser;
