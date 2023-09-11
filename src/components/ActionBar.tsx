@@ -3,7 +3,7 @@ import HeartIcon from "./ui/icons/HeartIcon";
 import { parseDate } from "@/util/date";
 import HeartFillIcon from "./ui/icons/HeartFillIcon";
 import BookmarkFillIcon from "./ui/icons/BookmarkFillIcon";
-import { SimplePost } from "@/model/post";
+import { Comment, SimplePost } from "@/model/post";
 import ToggleBtn from "./ui/ToggleBtn";
 import usePosts from "@/hooks/posts";
 import useMe from "@/hooks/me";

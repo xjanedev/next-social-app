@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { SimplePost } from "@/model/post";
+import { SimplePost, Comment } from "@/model/post";
 import ActionBar from "./ActionBar";
 import ModalPortal from "./ui/ModalPortal";
 import PostModal from "./PostModal";
