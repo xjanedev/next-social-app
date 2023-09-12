@@ -6,7 +6,7 @@ var image_url_1 = require("@sanity/image-url");
 exports.client = client_1.createClient({
     projectId: process.env.SANITY_PROJECT_ID,
     dataset: process.env.SANITY_DATASET,
-    useCdn: true,
+    useCdn: false,
     apiVersion: "2023-09-01",
     token: process.env.SANITY_SECRET_TOKEN
 });
