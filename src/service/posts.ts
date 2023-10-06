@@ -37,8 +37,15 @@ export async function getPost(id: string) {
       comments[]{comment, "username": author->username, "image": author->image},
       "id":_id,
       "createdAt":_creatdAt
-    }`
+    }`,
+
+      undefined,
+
+      {
+        cache: "no-store",
+      }
     )
+
     .then(post => ({ ...post, image: urlFor(post.image) }));
 }
 
@@ -48,7 +55,13 @@ export async function getPostsOf(username: string) {
       `*[_type == "post" && author->username == "${username}"]
       | order(_createdAt desc){
         ${simplePostProjection}
-      }`
+      }`,
+
+      undefined,
+
+      {
+        cache: "no-store",
+      }
     )
     .then(mapPosts);
 }
@@ -58,7 +71,13 @@ export async function getLikedPostsOf(username: string) {
       `*[_type == "post" && "${username}" in likes[]->username]
       | order(_createdAt desc){
         ${simplePostProjection}
-      }`
+      }`,
+
+      undefined,
+
+      {
+        cache: "no-store",
+      }
     )
     .then(mapPosts);
 }
@@ -68,7 +87,13 @@ export async function getSavedPostsOf(username: string) {
       `*[_type == "post" && _id in *[_type=="user" && username=="${username}"].bookmarks[]._ref]
       | order(_createdAt desc){
         ${simplePostProjection}
-      }`
+      }`,
+
+      undefined,
+
+      {
+        cache: "no-store",
+      }
     )
     .then(mapPosts);
 }
@@ -82,7 +107,7 @@ function mapPosts(posts: SimplePost[]) {
 
 export async function likePost(postId: string, userId: string) {
   return client
-    .patch(postId) //
+    .patch(postId)
     .setIfMissing({ likes: [] })
     .append("likes", [
       {

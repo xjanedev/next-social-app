@@ -2,9 +2,7 @@
 
 /** @type {import('next').NextConfig} */
 var nextConfig = {
-  experimental: {
-    appDir: true
-  },
+  experimental: {},
   images: {
     domains: ["cdn.sanity.io"]
   }
