@@ -34,3 +34,5 @@ export async function POST(req: NextRequest) {
   return createPost(user.id, text, file) //
     .then(data => NextResponse.json(data));
 }
+
+// server.js 또는 routes/posts.js

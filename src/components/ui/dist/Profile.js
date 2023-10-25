@@ -29,6 +29,6 @@ function getImageSizeStyle(size) {
         case "medium":
             return "w-[30px] h-[30px]";
         case "big":
-            return "w=[40px] h-[80px]";
+            return "w=[48px] h-[80px] p-[0.3rem]";
     }
 }
