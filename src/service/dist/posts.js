@@ -162,7 +162,6 @@ exports.addComment = addComment;
 function createPost(userId, text, file) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            console.log(userId, text, file);
             return [2 /*return*/, fetch(sanity_1.assetsURL, {
                     method: "POST",
                     headers: {

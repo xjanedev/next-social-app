@@ -23,7 +23,7 @@ export default function PostListCard({ post, priority = false }: Props) {
   };
 
   return (
-    <article className='rounded-3xl border border-gray-20'>
+    <article className='rounded-3xl border border-gray-300'>
       <PostUserProfile image={userImage} username={username} />
       <Image
         className='w-[580px] h-[500px] object-cover aspect-square pb-2'

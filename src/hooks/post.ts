@@ -36,5 +36,6 @@ export default function useFullPost(postId: string) {
     },
     [post, mutate, globalMutate]
   );
+
   return { post, isLoading, error, postComment };
 }

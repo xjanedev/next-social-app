@@ -90,7 +90,7 @@ export default function NewPost({ user: { username, image } }: Props) {
         />
         <label
           className={`w-full h-96 flex flex-col items-center justify-center rounded-3xl ${
-            !file && "border border-gray-200"
+            !file && "border border-gray-300"
           }`}
           htmlFor='input-upload'
           onDragEnter={handleDrag}
@@ -103,7 +103,7 @@ export default function NewPost({ user: { username, image } }: Props) {
           )}
           {!file && (
             <div className='flex flex-col items-center pointer-events-none'>
-              <p className='text-sm text-gray-300'>
+              <p className='text-sm text-gray-400'>
                 Drag and Drop your image here or click
               </p>
             </div>
@@ -121,7 +121,7 @@ export default function NewPost({ user: { username, image } }: Props) {
           )}
         </label>
         <textarea
-          className='outline-none mt-2 text-sm p-6 border border-gray-200 resize-none rounded-3xl'
+          className='outline-none mt-2 text-sm p-6 border border-gray-300 resize-none rounded-3xl'
           name='text'
           id='input-text'
           required

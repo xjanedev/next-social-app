@@ -28,7 +28,7 @@ export default function RootLayout({
       <body className='w-full max-w-screen-xl overflow-auto mx-auto'>
         <AuthContext>
           {/* // auth context data 사용할 수 있다. */}
-          <header className='sticky top-0 bg-white border-b'>
+          <header className='sticky top-0 bg-white border-b border-gray-300'>
             <Navbar />
           </header>
           <main>
