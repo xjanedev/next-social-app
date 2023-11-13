@@ -53,13 +53,6 @@
 
 <br>
 
-## To Do List
-- [ ] 자신이 작성한 게시글 상세 페이지에서 삭제 및 수정 버튼 표시
-- [ ] 무한 스크롤 기능 구현
-- [ ] 회원 탈퇴 기능 구현
-
-<br>
-
 ## File Structure
 
 <img width="692" alt="스크린샷 2023-10-27 오후 5 04 37" src="https://github.com/xjanedev/next-social-app/assets/127685269/0a425eca-2ae8-41e0-9e54-870c92eb8121">
